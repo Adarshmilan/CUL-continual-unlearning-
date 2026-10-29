@@ -13,7 +13,7 @@ original CIFAR-100 class 0. `class_order[new_label]` gives back the original id.
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader, Subset
+from torch.utils.data import DataLoader, Dataset, Subset
 from torchvision import datasets, transforms
 
 from common.utils import DATA_DIR
@@ -75,6 +75,26 @@ def task_classes(task_id: int) -> list[int]:
 
 def class_to_task(label: int) -> int:
     return label // CLASSES_PER_TASK
+
+
+class IndexedSubset(Dataset):
+    """Like Subset, but each item is (image, label, index in the full dataset).
+
+    Replay buffers (program 05 on) store that index instead of a copy of the image.
+    It lives here, not in a notebook, so DataLoader worker processes can import it.
+    """
+
+    def __init__(self, dataset, indices):
+        self.dataset = dataset
+        self.indices = list(indices)
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, i):
+        idx = self.indices[i]
+        image, label = self.dataset[idx]
+        return image, label, idx
 
 
 class SplitCIFAR100:
@@ -139,6 +159,12 @@ class SplitCIFAR100:
         train_sub, test_sub = self.get_task_subsets(task_id)
         return (_loader(train_sub, self.batch_size, True, self.num_workers),
                 _loader(test_sub, self.batch_size, False, self.num_workers))
+
+    def get_task_loader_with_index(self, task_id: int):
+        """Training loader for one task whose batches are (images, labels, dataset indices).
+        Shuffled and augmented, like get_task_loaders. Used by replay buffers."""
+        subset = IndexedSubset(self.train_set, self._indices(task_classes(task_id), train=True))
+        return _loader(subset, self.batch_size, True, self.num_workers)
 
     def get_class_loader(self, label: int, train: bool = False, augment: bool = False, shuffle: bool = False):
         """Loader for the images of one single class (needed for class-level unlearning)."""
