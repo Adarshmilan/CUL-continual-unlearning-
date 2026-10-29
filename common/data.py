@@ -59,6 +59,47 @@ def get_cifar10_loaders(batch_size=128, num_workers=4):
             _loader(test_set, batch_size, False, num_workers))
 
 
+def get_cifar10_unlearning_loaders(forget_class: int, batch_size=128, num_workers=4):
+    """CIFAR-10 split into a FORGET set (one class) and a RETAIN set (the other nine).
+
+    Used by the offline unlearning programs 07-10. Returns a dict of loaders:
+
+      train_retain        training images of the 9 kept classes (augmented, shuffled)
+      train_forget        training images of the forgotten class (augmented, shuffled)
+      train_retain_plain  same images, no augmentation, not shuffled (for measuring)
+      train_forget_plain  same images, no augmentation, not shuffled (for measuring, MIA)
+      test_retain         test images of the 9 kept classes
+      test_forget         test images of the forgotten class
+      test_all            all 10,000 test images
+
+    plus "classes" (the 10 class names).
+    """
+    def load(train, augment):
+        return datasets.CIFAR10(DATA_DIR, train=train, download=True,
+                                transform=_transforms(CIFAR10_MEAN, CIFAR10_STD, train=augment))
+
+    train_aug, train_plain, test = load(True, True), load(True, False), load(False, False)
+
+    def split(ds):
+        targets = np.asarray(ds.targets)
+        forget = np.where(targets == forget_class)[0].tolist()
+        retain = np.where(targets != forget_class)[0].tolist()
+        return retain, forget
+
+    tr_retain, tr_forget = split(train_aug)
+    te_retain, te_forget = split(test)
+    return {
+        "train_retain": _loader(Subset(train_aug, tr_retain), batch_size, True, num_workers),
+        "train_forget": _loader(Subset(train_aug, tr_forget), batch_size, True, num_workers),
+        "train_retain_plain": _loader(Subset(train_plain, tr_retain), batch_size, False, num_workers),
+        "train_forget_plain": _loader(Subset(train_plain, tr_forget), batch_size, False, num_workers),
+        "test_retain": _loader(Subset(test, te_retain), batch_size, False, num_workers),
+        "test_forget": _loader(Subset(test, te_forget), batch_size, False, num_workers),
+        "test_all": _loader(test, batch_size, False, num_workers),
+        "classes": test.classes,
+    }
+
+
 # ---------------------------------------------------------- Split CIFAR-100
 
 

@@ -67,6 +67,33 @@ def evaluate(model, loader, device, allowed_labels=None):
     return correct / seen
 
 
+@torch.no_grad()
+def per_class_accuracy(model, loader, device, n_classes=None):
+    """Accuracy of each class separately, as a numpy array (NaN for classes not in the loader)."""
+    model.eval()
+    n_classes = n_classes or model.fc.out_features
+    correct = torch.zeros(n_classes)
+    total = torch.zeros(n_classes)
+    for images, labels in loader:
+        preds = model(images.to(device, non_blocking=True)).argmax(1).cpu()
+        total += torch.bincount(labels, minlength=n_classes).float()
+        correct += torch.bincount(labels[preds == labels], minlength=n_classes).float()
+    acc = correct / total
+    acc[total == 0] = float("nan")
+    return acc.numpy()
+
+
+@torch.no_grad()
+def predict_all(model, loader, device):
+    """Softmax probabilities and labels for every image in a loader: (probs [N, C], labels [N])."""
+    model.eval()
+    probs, labels = [], []
+    for images, y in loader:
+        probs.append(torch.softmax(model(images.to(device, non_blocking=True)).float(), dim=1).cpu())
+        labels.append(y)
+    return torch.cat(probs), torch.cat(labels)
+
+
 def evaluate_tasks(model, data, up_to_task, device):
     """Test on every task 0..up_to_task.
 
