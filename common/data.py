@@ -11,6 +11,8 @@ its position in that order. After renaming, task t simply holds labels
 original CIFAR-100 class 0. `class_order[new_label]` gives back the original id.
 """
 
+import copy
+
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset, Subset
@@ -59,7 +61,7 @@ def get_cifar10_loaders(batch_size=128, num_workers=4):
             _loader(test_set, batch_size, False, num_workers))
 
 
-def get_cifar10_unlearning_loaders(forget_class: int, batch_size=128, num_workers=4):
+def get_cifar10_unlearning_loaders(forget_class: int, batch_size=128, num_workers=2):
     """CIFAR-10 split into a FORGET set (one class) and a RETAIN set (the other nine).
 
     Used by the offline unlearning programs 07-10. Returns a dict of loaders:
@@ -73,12 +75,21 @@ def get_cifar10_unlearning_loaders(forget_class: int, batch_size=128, num_worker
       test_all            all 10,000 test images
 
     plus "classes" (the 10 class names).
+
+    Memory (the project runs on an 8 GB laptop):
+    - Only the two augmented training loaders use worker processes (num_workers each).
+      Every worker is a separate Python process with its own copy of PyTorch and the
+      images, a few hundred MB each. Measuring loaders use none: no augmentation, so
+      the main process is fast enough.
+    - The plain and augmented training sets share one copy of the image array.
     """
     def load(train, augment):
         return datasets.CIFAR10(DATA_DIR, train=train, download=True,
                                 transform=_transforms(CIFAR10_MEAN, CIFAR10_STD, train=augment))
 
-    train_aug, train_plain, test = load(True, True), load(True, False), load(False, False)
+    train_aug, test = load(True, True), load(False, False)
+    train_plain = copy.copy(train_aug)        # shallow copy: shares the 150 MB image array
+    train_plain.transform = _transforms(CIFAR10_MEAN, CIFAR10_STD, train=False)
 
     def split(ds):
         targets = np.asarray(ds.targets)
@@ -91,11 +102,11 @@ def get_cifar10_unlearning_loaders(forget_class: int, batch_size=128, num_worker
     return {
         "train_retain": _loader(Subset(train_aug, tr_retain), batch_size, True, num_workers),
         "train_forget": _loader(Subset(train_aug, tr_forget), batch_size, True, num_workers),
-        "train_retain_plain": _loader(Subset(train_plain, tr_retain), batch_size, False, num_workers),
-        "train_forget_plain": _loader(Subset(train_plain, tr_forget), batch_size, False, num_workers),
-        "test_retain": _loader(Subset(test, te_retain), batch_size, False, num_workers),
-        "test_forget": _loader(Subset(test, te_forget), batch_size, False, num_workers),
-        "test_all": _loader(test, batch_size, False, num_workers),
+        "train_retain_plain": _loader(Subset(train_plain, tr_retain), batch_size, False, 0),
+        "train_forget_plain": _loader(Subset(train_plain, tr_forget), batch_size, False, 0),
+        "test_retain": _loader(Subset(test, te_retain), batch_size, False, 0),
+        "test_forget": _loader(Subset(test, te_forget), batch_size, False, 0),
+        "test_all": _loader(test, batch_size, False, 0),
         "classes": test.classes,
     }
 
