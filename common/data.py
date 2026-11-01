@@ -200,6 +200,10 @@ class SplitCIFAR100:
             return self.test_set
         return self.train_set if augment else self.train_set_plain
 
+    def train_indices(self, labels) -> list[int]:
+        """Dataset indices of all training images with one of these labels."""
+        return self._indices(labels, train=True)
+
     def get_task_subsets(self, task_id: int):
         """(train_subset, test_subset) for one task, as torch Subsets."""
         labels = task_classes(task_id)

@@ -69,6 +69,25 @@ class DERBuffer:
         images = torch.stack([self.dataset[i][0] for i in self.indices[pick]])
         return images, torch.from_numpy(self.labels[pick]), self.logits[pick]
 
+    def positions_of(self, labels):
+        """Buffer slots whose label is one of `labels`."""
+        return np.where(np.isin(self.labels[: self.n_kept], list(labels)))[0]
+
+    def remove(self, labels):
+        """Delete every entry whose label is one of `labels` (after an unlearn request, program 12).
+
+        The remaining entries are packed to the front. Later images fill the freed
+        slots first, then reservoir sampling continues as before. Returns how many were removed.
+        """
+        keep = np.where(~np.isin(self.labels[: self.n_kept], list(labels)))[0]
+        removed = self.n_kept - len(keep)
+        n = len(keep)
+        self.indices[:n] = self.indices[keep]
+        self.labels[:n] = self.labels[keep]
+        self.logits[:n] = self.logits[keep]
+        self.n_kept = n
+        return removed
+
     def per_task(self, n_tasks: int = 10, classes_per_task: int = 10):
         """How many buffer entries belong to each task."""
         return np.bincount(self.labels[: self.n_kept] // classes_per_task, minlength=n_tasks)
