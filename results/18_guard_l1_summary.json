@@ -1,0 +1,154 @@
+{
+ "config": {
+  "name": "18_guard_l1",
+  "stream": "task15_seed0",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "penalty",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7748,
+   "FA": 0.0992,
+   "Spill": 0.0774,
+   "Relapse": 0.0144,
+   "spill_list": [
+    0.063,
+    0.023,
+    0.032,
+    0.063,
+    0.206
+   ],
+   "relapse_list": [
+    0.02,
+    0.002,
+    0.04,
+    0.01,
+    0.0
+   ]
+  },
+  "cil": {
+   "RA": 0.5682,
+   "FA": 0.0,
+   "Spill": 0.2284,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.105,
+    0.087,
+    0.159,
+    0.506,
+    0.285
+   ],
+   "relapse_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "probe": {
+   "before": 0.7854,
+   "after_U": 0.7696,
+   "end": 0.7544000000000001,
+   "peak_rise": 0.012200000000000011,
+   "end_rise": -0.015199999999999991,
+   "per_item": {
+    "5": [
+     0.728,
+     0.717,
+     0.722
+    ],
+    "3": [
+     0.713,
+     0.71,
+     0.714
+    ],
+    "2": [
+     0.835,
+     0.823,
+     0.794
+    ],
+    "8": [
+     0.841,
+     0.822,
+     0.766
+    ],
+    "4": [
+     0.81,
+     0.776,
+     0.776
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "request": 4,
+   "item": 5,
+   "forget_images": 5000,
+   "in_buffer": 494,
+   "retain_images": 1506,
+   "bad_teacher_seed": 5,
+   "removed": 494
+  },
+  {
+   "request": 7,
+   "item": 3,
+   "forget_images": 5000,
+   "in_buffer": 326,
+   "retain_images": 1674,
+   "bad_teacher_seed": 9,
+   "removed": 326
+  },
+  {
+   "request": 8,
+   "item": 2,
+   "forget_images": 5000,
+   "in_buffer": 359,
+   "retain_images": 1315,
+   "bad_teacher_seed": 9,
+   "removed": 359
+  },
+  {
+   "request": 10,
+   "item": 8,
+   "forget_images": 5000,
+   "in_buffer": 857,
+   "retain_images": 1143,
+   "bad_teacher_seed": 13,
+   "removed": 857
+  },
+  {
+   "request": 14,
+   "item": 4,
+   "forget_images": 5000,
+   "in_buffer": 199,
+   "retain_images": 1801,
+   "bad_teacher_seed": 14,
+   "removed": 199
+  }
+ ]
+}

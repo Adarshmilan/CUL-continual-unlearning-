@@ -1,0 +1,82 @@
+{
+ "config": {
+  "name": "18_wolf_plain_s1",
+  "stream": "task15_seed0",
+  "seed": 1,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "penalty",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "plain",
+  "signature_images": 1000,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.6084,
+   "FA": 0.0,
+   "Spill": 0.41,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.41
+   ],
+   "relapse_list": [
+    0.0
+   ]
+  },
+  "cil": {
+   "RA": 0.5184,
+   "FA": 0.0,
+   "Spill": 0.41,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.41
+   ],
+   "relapse_list": [
+    0.0
+   ]
+  },
+  "probe": {
+   "before": 0.9,
+   "after_U": 0.9100000000000001,
+   "end": 0.8550000000000001,
+   "peak_rise": 0.0,
+   "end_rise": -0.05500000000000005,
+   "per_item": {
+    "73": [
+     0.9,
+     0.91,
+     0.855
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "request": 1,
+   "item": 73,
+   "forget_images": 500,
+   "in_buffer": 208,
+   "retain_images": 1792,
+   "bad_teacher_seed": 1,
+   "removed": 208
+  }
+ ]
+}

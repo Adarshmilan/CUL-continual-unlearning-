@@ -1,0 +1,82 @@
+{
+ "config": {
+  "name": "20_fixes_handmade_worst",
+  "stream": "handmade_worst",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7941,
+   "FA": 0.14,
+   "Spill": 0.0,
+   "Relapse": 0.04,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.04
+   ]
+  },
+  "cil": {
+   "RA": 0.4204,
+   "FA": 0.0,
+   "Spill": 0.0,
+   "Relapse": 0.1,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.1
+   ]
+  },
+  "probe": {
+   "before": 0.553,
+   "after_U": 0.312,
+   "end": 0.6740000000000002,
+   "peak_rise": 0.36200000000000015,
+   "end_rise": 0.36200000000000015,
+   "per_item": {
+    "0": [
+     0.553,
+     0.312,
+     0.674
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "request": 1,
+   "item": 0,
+   "forget_images": 5000,
+   "in_buffer": 2000,
+   "retain_images": 0,
+   "bad_teacher_seed": 1,
+   "removed": 2000
+  }
+ ]
+}

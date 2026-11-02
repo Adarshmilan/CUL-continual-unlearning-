@@ -18,20 +18,27 @@ from common.models import resnet18_cifar
 
 
 @torch.no_grad()
-def favourite_class(model, images, chunk=500):
-    """The class a model answers most often on these images."""
+def favourite_class(model, images, among=None, chunk=500):
+    """The class a model answers most often on these images.
+    among: optional list of class ids; then only those outputs compete (e.g. one task's 10 classes)."""
     model.eval()
-    preds = torch.cat([model(images[i:i + chunk]).argmax(1) for i in range(0, len(images), chunk)])
-    return int(preds.mode().values)
+    logits = torch.cat([model(images[i:i + chunk]) for i in range(0, len(images), chunk)])
+    if among is None:
+        return int(logits.argmax(1).mode().values)
+    among = torch.as_tensor(list(among), device=logits.device)
+    return int(among[logits[:, among].argmax(1)].mode().values)
 
 
-def make_bad_teacher(num_classes, probe_images, forbidden, seed, device, max_tries=100):
+def make_bad_teacher(num_classes, probe_images, forbidden, seed, device, among=None, max_tries=100):
     """A random, never-trained ResNet-18, frozen.
 
-    Random networks give almost every image the same answer (program 09, section 3). If that
-    answer on the forget images is a class we want to forget, the student would keep
-    answering it, so such networks are rejected and the next seed is tried.
-    Returns (model, seed used, its favourite class).
+    Random networks give almost every image the same answer (program 09, section 3), and they
+    also rank the classes inside a task almost the same way for every image. If the favourite
+    answer is a class we want to forget, the student would keep answering it, so such networks
+    are rejected and the next seed is tried. The check is done over all outputs AND, if `among`
+    is given (e.g. the task of a forgotten class), over those outputs only.
+    For task-level forgetting every class of the task is forbidden, so pass among=None there.
+    Returns (model, seed used, its favourite class over all outputs).
     """
     forbidden = set(int(c) for c in forbidden)
     probe_images = probe_images.to(device)
@@ -41,7 +48,8 @@ def make_bad_teacher(num_classes, probe_images, forbidden, seed, device, max_tri
             model = resnet18_cifar(num_classes=num_classes)
         model = model.to(device).eval()
         fav = favourite_class(model, probe_images)
-        if fav not in forbidden:
+        fav_within = favourite_class(model, probe_images, among) if among is not None else None
+        if fav not in forbidden and fav_within not in forbidden:
             for p in model.parameters():
                 p.requires_grad_(False)
             return model, s, fav
