@@ -1,0 +1,43 @@
+[  0] L0   kept  67.0%  train acc 69.0% (1 classes left out: reference)  (77s)
+[  1] U73  kept  67.0%  forgot head   0.0%  probe  86.0%  forget imgs 0 (0 in buffer), deleted 0  (91s)
+[  2] L1   kept  65.7%  forgot head   0.0%  probe  84.0%  train acc 63.6%  (180s)
+{
+ "til": {
+  "RA": 0.6574,
+  "FA": NaN,
+  "Spill": 0.0,
+  "Relapse": NaN,
+  "spill_list": [
+   0.0
+  ],
+  "relapse_list": [
+   NaN
+  ]
+ },
+ "cil": {
+  "RA": 0.5658,
+  "FA": NaN,
+  "Spill": 0.0,
+  "Relapse": NaN,
+  "spill_list": [
+   0.0
+  ],
+  "relapse_list": [
+   NaN
+  ]
+ },
+ "probe": {
+  "before": 0.86,
+  "after_U": 0.86,
+  "end": 0.8400000000000001,
+  "peak_rise": 0.0,
+  "end_rise": -0.019999999999999907,
+  "per_item": {
+   "73": [
+    0.86,
+    0.86,
+    0.84
+   ]
+  }
+ }
+}

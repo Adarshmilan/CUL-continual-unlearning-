@@ -1,0 +1,72 @@
+{
+ "workers": 2,
+ "epochs": 5,
+ "lr": 0.03,
+ "batch_size": 32,
+ "buffer_size": 2000,
+ "replay_batch": 32,
+ "alpha": 0.5,
+ "beta": 0.5,
+ "unlearn_lr": 0.0001,
+ "unlearn_steps": 50,
+ "forget_batch": 64,
+ "retain_batch": 192,
+ "forget_data": "all",
+ "min_forget": 64,
+ "bad_teacher_seed": 0,
+ "purge_buffer": true,
+ "head_reset": true,
+ "mask_forgotten_logits": true,
+ "guard_lambda": 1.0,
+ "k": 5,
+ "signature": "specific",
+ "signature_images": 1000,
+ "probe_folds": 5,
+ "guard": "none",
+ "reference": true,
+ "seed": 1,
+ "probe_blocks": true,
+ "level": "class",
+ "tasks_by_name": {
+  "0": [
+   "wolf",
+   "camel",
+   "cattle",
+   "chimpanzee",
+   "elephant",
+   "kangaroo",
+   "bus",
+   "bicycle",
+   "orchid",
+   "apple"
+  ],
+  "1": [
+   "bed",
+   "chair",
+   "couch",
+   "table",
+   "wardrobe",
+   "lawn_mower",
+   "rocket",
+   "streetcar",
+   "tank",
+   "tractor"
+  ]
+ },
+ "requests": [
+  [
+   "L",
+   0
+  ],
+  [
+   "U",
+   "wolf"
+  ],
+  [
+   "L",
+   1
+  ]
+ ],
+ "stream": "custom",
+ "name": "paper/cause_ref_dissimilar_s1"
+}

@@ -1,0 +1,91 @@
+[  0] L1   kept  71.5%  train acc 71.1%  (83s)
+[  1] L6   kept  69.8%  train acc 68.8%  (165s)
+[  2] L5   kept  76.2%  train acc 77.0%  (247s)
+[  3] U5   kept  72.8%  forgot head  10.4%  probe  75.7%  forget imgs 5000 (664 in buffer), deleted 664  (341s)
+[  4] U1   kept  68.7%  forgot head  10.7%  probe  76.2%  forget imgs 5000 (668 in buffer), deleted 668  (435s)
+[  5] L4   kept  78.6%  forgot head   9.4%  probe  73.0%  train acc 88.1%  (529s)
+[  6] L2   kept  79.3%  forgot head   7.1%  probe  73.5%  train acc 86.3%  (624s)
+[  7] L7   kept  78.8%  forgot head   8.7%  probe  74.5%  train acc 88.0%  (719s)
+[  8] L8   kept  79.6%  forgot head  10.7%  probe  74.9%  train acc 87.6%  (813s)
+[  9] U6   kept  78.8%  forgot head  10.3%  probe  74.3%  forget imgs 5000 (275 in buffer), deleted 275  (907s)
+[ 10] L0   kept  80.7%  forgot head  10.0%  probe  72.8%  train acc 85.6%  (1005s)
+[ 11] U7   kept  72.8%  forgot head  10.3%  probe  75.3%  forget imgs 5000 (247 in buffer), deleted 247  (1100s)
+[ 12] L3   kept  80.0%  forgot head   9.6%  probe  76.0%  train acc 88.3%  (1200s)
+[ 13] L9   kept  79.8%  forgot head   8.1%  probe  76.7%  train acc 89.7%  (1302s)
+[ 14] U3   kept  78.2%  forgot head   8.9%  probe  75.3%  forget imgs 5000 (357 in buffer), deleted 357  (1397s)
+{
+ "til": {
+  "RA": 0.7818,
+  "FA": 0.089,
+  "Spill": 0.1198,
+  "Relapse": 0.0098,
+  "spill_list": [
+   0.059,
+   0.011,
+   0.128,
+   0.315,
+   0.086
+  ],
+  "relapse_list": [
+   0.015,
+   0.006,
+   0.023,
+   0.005,
+   0.0
+  ]
+ },
+ "cil": {
+  "RA": 0.5612,
+  "FA": 0.0,
+  "Spill": 0.2204,
+  "Relapse": 0.0,
+  "spill_list": [
+   0.3,
+   0.103,
+   0.204,
+   0.157,
+   0.338
+  ],
+  "relapse_list": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "probe": {
+  "before": 0.7774000000000001,
+  "after_U": 0.7666,
+  "end": 0.7525999999999999,
+  "peak_rise": 0.007000000000000029,
+  "end_rise": -0.014000000000000012,
+  "per_item": {
+   "5": [
+    0.755,
+    0.757,
+    0.725
+   ],
+   "1": [
+    0.771,
+    0.765,
+    0.752
+   ],
+   "6": [
+    0.779,
+    0.748,
+    0.742
+   ],
+   "7": [
+    0.806,
+    0.804,
+    0.785
+   ],
+   "3": [
+    0.776,
+    0.759,
+    0.759
+   ]
+  }
+ }
+}

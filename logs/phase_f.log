@@ -1,0 +1,28 @@
+skip F_ref_handmade_worst
+skip F_layer_handmade_worst
+skip F_ref_task15_seed0
+=== START F_layer_task15_seed0 06:02
+=== DONE F_layer_task15_seed0 06:26
+=== START F_ref_task15_seed1 06:26
+=== DONE F_ref_task15_seed1 06:35
+=== START F_fixes_task15_seed1 06:35
+=== DONE F_fixes_task15_seed1 06:51
+=== START F_proj_task15_seed1 06:51
+=== DONE F_proj_task15_seed1 07:08
+=== START F_layer_task15_seed1 07:08
+=== DONE F_layer_task15_seed1 07:31
+=== START F_ref_task15_seed2 07:31
+=== DONE F_ref_task15_seed2 07:40
+=== START F_fixes_task15_seed2 07:40
+=== DONE F_fixes_task15_seed2 07:57
+=== START F_proj_task15_seed2 07:57
+=== DONE F_proj_task15_seed2 08:14
+=== START F_layer_task15_seed2 08:14
+=== DONE F_layer_task15_seed2 08:37
+=== START F_ref_class30_seed0 08:37
+=== DONE F_ref_class30_seed0 08:52
+=== START F_fixes_class30_seed0 08:52
+=== FAILED F_fixes_class30_seed0 09:02 (see logs/F_fixes_class30_seed0.log)
+=== START F_layer_class30_seed0 09:02
+=== FAILED F_layer_class30_seed0 09:25 (see logs/F_layer_class30_seed0.log)
+=== QUEUE FINISHED 09:25

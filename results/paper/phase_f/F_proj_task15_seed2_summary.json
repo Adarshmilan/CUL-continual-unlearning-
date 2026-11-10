@@ -1,0 +1,172 @@
+{
+ "config": {
+  "name": "F_proj_task15_seed2",
+  "stream": "task15_seed2",
+  "seed": 2,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "projection",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": false,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7714,
+   "FA": 0.0802,
+   "Spill": 0.134,
+   "Relapse": 0.0154,
+   "spill_list": [
+    0.028,
+    0.01,
+    0.243,
+    0.264,
+    0.125
+   ],
+   "relapse_list": [
+    0.003,
+    0.025,
+    0.023,
+    0.026,
+    0.0
+   ]
+  },
+  "cil": {
+   "RA": 0.5414,
+   "FA": 0.0,
+   "Spill": 0.2022,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.294,
+    0.114,
+    0.2,
+    0.149,
+    0.254
+   ],
+   "relapse_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "probe": {
+   "before": 0.7764,
+   "after_U": 0.7657999999999999,
+   "end": 0.7478000000000001,
+   "peak_rise": 0.00800000000000003,
+   "end_rise": -0.01799999999999995,
+   "per_item": {
+    "5": [
+     0.768,
+     0.737,
+     0.731
+    ],
+    "1": [
+     0.752,
+     0.762,
+     0.746
+    ],
+    "6": [
+     0.775,
+     0.758,
+     0.732
+    ],
+    "7": [
+     0.82,
+     0.815,
+     0.773
+    ],
+    "3": [
+     0.767,
+     0.757,
+     0.757
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "layer_dims": {},
+   "feature_loss": null,
+   "request": 3,
+   "item": 5,
+   "forget_images": 5000,
+   "in_buffer": 664,
+   "retain_images": 1336,
+   "bad_teacher_seed": 3,
+   "removed": 664
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": null,
+   "request": 4,
+   "item": 1,
+   "forget_images": 5000,
+   "in_buffer": 668,
+   "retain_images": 668,
+   "bad_teacher_seed": 5,
+   "removed": 668
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": null,
+   "request": 9,
+   "item": 6,
+   "forget_images": 5000,
+   "in_buffer": 275,
+   "retain_images": 1725,
+   "bad_teacher_seed": 12,
+   "removed": 275
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": null,
+   "request": 11,
+   "item": 7,
+   "forget_images": 5000,
+   "in_buffer": 247,
+   "retain_images": 1753,
+   "bad_teacher_seed": 12,
+   "removed": 247
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": null,
+   "request": 14,
+   "item": 3,
+   "forget_images": 5000,
+   "in_buffer": 357,
+   "retain_images": 1643,
+   "bad_teacher_seed": 17,
+   "removed": 357
+  }
+ ]
+}

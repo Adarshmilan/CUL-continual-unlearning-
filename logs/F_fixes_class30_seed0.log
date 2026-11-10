@@ -1,0 +1,241 @@
+[  0] L6   kept  58.9%  train acc 62.3%  (85s)
+[  1] U60  kept  63.8%  forgot head   0.0%  probe  75.5%  forget imgs 500 (203 in buffer), deleted 203  (112s)
+[  2] U62  kept  66.1%  forgot head   0.0%  probe  80.5%  forget imgs 500 (204 in buffer), deleted 204  (138s)
+[  3] U63  kept  67.4%  forgot head   0.0%  probe  80.7%  forget imgs 500 (171 in buffer), deleted 171  (165s)
+[  4] U64  kept  71.2%  forgot head   0.0%  probe  79.6%  forget imgs 500 (213 in buffer), deleted 213  (192s)
+[  5] U61  kept  72.0%  forgot head   0.0%  probe  79.6%  forget imgs 500 (200 in buffer), deleted 200  (219s)
+[  6] U67  kept  77.2%  forgot head   0.0%  probe  79.8%  forget imgs 500 (185 in buffer), deleted 185  (245s)
+[  7] U65  kept  81.7%  forgot head   0.0%  probe  79.1%  forget imgs 500 (221 in buffer), deleted 221  (272s)
+[  8] U69  kept  79.0%  forgot head   0.0%  probe  79.5%  forget imgs 500 (186 in buffer), deleted 186  (300s)
+[  9] U68  kept 100.0%  forgot head   0.7%  probe  79.1%  forget imgs 500 (198 in buffer), deleted 198  (329s)
+[ 10] L4   kept  79.3%  forgot head   0.0%  probe  82.1%  train acc 77.7%  (419s)
+[ 11] U41  kept  80.1%  forgot head   0.9%  probe  81.7%  forget imgs 500 (199 in buffer), deleted 199  (445s)
+[ 12] L8   kept  76.9%  forgot head   2.0%  probe  82.3%  train acc 76.1%  (535s)
+[ 13] U42  kept  77.6%  forgot head   4.2%  probe  83.0%  forget imgs 500 (136 in buffer), deleted 136  (562s)
+[ 14] U66  kept  76.4%  forgot head   8.4%  probe  82.3%  forget imgs 500 (78 in buffer), deleted 78  (589s)
+[ 15] U40  kept  75.6%  forgot head   9.4%  probe  82.5%  forget imgs 500 (123 in buffer), deleted 123  (617s)
+[ 16] L5   kept  78.6%  forgot head   7.0%  probe  85.0%  train acc 79.8%  (707s)
+[ 17] U47  kept  78.6%  forgot head   6.3%  probe  85.7%  forget imgs 500 (92 in buffer), deleted 92  (734s)
+[ 18] L7   kept  80.0%  forgot head   6.9%  probe  84.5%  train acc 84.8%  (824s)
+[ 19] L1   kept  80.2%  forgot head   9.6%  probe  85.2%  train acc 87.2%  (912s)
+[ 20] U49  kept  79.8%  forgot head   7.1%  probe  85.6%  forget imgs 500 (50 in buffer), deleted 50  (939s)
+[ 21] U13  kept  78.6%  forgot head   8.4%  probe  85.6%  forget imgs 500 (36 in buffer), deleted 36  (966s)
+[ 22] L9   kept  78.9%  forgot head  11.3%  probe  85.9%  train acc 86.3%  (1056s)
+[ 23] L3   kept  78.6%  forgot head  10.9%  probe  87.7%  train acc 85.2%  (1146s)
+[ 24] U16  kept  78.4%  forgot head  10.7%  probe  88.0%  forget imgs 500 (23 in buffer), deleted 23  (1173s)
+[ 25] L2   kept  80.1%  forgot head   8.9%  probe  87.2%  train acc 91.4%  (1262s)
+[ 26] L0   kept  78.0%  forgot head  11.0%  probe  87.4%  train acc 87.2%  (1352s)
+[ 27] U52  kept  76.4%  forgot head   9.9%  probe  87.8%  forget imgs 500 (40 in buffer), deleted 40  (1379s)
+[ 28] U7   kept  75.2%  forgot head   8.9%  probe  87.3%  forget imgs 500 (17 in buffer), deleted 17  (1406s)
+[ 29] U48  kept  74.7%  forgot head   7.3%  probe  86.6%  forget imgs 500 (42 in buffer), deleted 42  (1433s)
+{
+ "til": {
+  "RA": 0.7471,
+  "FA": 0.073,
+  "Spill": 1.1835,
+  "Relapse": 0.0525,
+  "spill_list": [
+   0.32,
+   0.31,
+   0.18,
+   0.47,
+   0.3,
+   0.19,
+   0.14,
+   0.3,
+   0.41,
+   0.26,
+   0.45,
+   0.31,
+   0.4,
+   0.89,
+   1.36,
+   1.74,
+   2.23,
+   3.61,
+   5.83,
+   3.97
+  ],
+  "relapse_list": [
+   0.19,
+   0.04,
+   0.0,
+   0.0,
+   0.07,
+   0.0,
+   0.23,
+   0.03,
+   0.06,
+   0.06,
+   0.02,
+   0.0,
+   0.16,
+   0.0,
+   0.05,
+   0.05,
+   0.07,
+   0.02,
+   0.0,
+   0.0
+  ]
+ },
+ "cil": {
+  "RA": 0.4394,
+  "FA": 0.0,
+  "Spill": 0.9045,
+  "Relapse": 0.0,
+  "spill_list": [
+   0.32,
+   0.31,
+   0.18,
+   0.47,
+   0.3,
+   0.19,
+   0.2,
+   0.3,
+   0.33,
+   0.29,
+   0.62,
+   0.52,
+   0.52,
+   0.7,
+   1.68,
+   1.7,
+   2.02,
+   2.47,
+   2.44,
+   2.53
+  ],
+  "relapse_list": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "probe": {
+  "before": 0.85375,
+  "after_U": 0.8487499999999999,
+  "end": 0.8657499999999999,
+  "peak_rise": 0.049499999999999975,
+  "end_rise": 0.016999999999999998,
+  "per_item": {
+   "60": [
+    0.755,
+    0.755,
+    0.865
+   ],
+   "62": [
+    0.85,
+    0.83,
+    0.8
+   ],
+   "63": [
+    0.85,
+    0.84,
+    0.89
+   ],
+   "64": [
+    0.795,
+    0.825,
+    0.9
+   ],
+   "61": [
+    0.79,
+    0.795,
+    0.885
+   ],
+   "67": [
+    0.75,
+    0.755,
+    0.825
+   ],
+   "65": [
+    0.835,
+    0.8,
+    0.805
+   ],
+   "69": [
+    0.85,
+    0.77,
+    0.83
+   ],
+   "68": [
+    0.765,
+    0.765,
+    0.825
+   ],
+   "41": [
+    0.93,
+    0.925,
+    0.905
+   ],
+   "42": [
+    0.835,
+    0.83,
+    0.83
+   ],
+   "66": [
+    0.795,
+    0.83,
+    0.825
+   ],
+   "40": [
+    0.915,
+    0.91,
+    0.92
+   ],
+   "47": [
+    0.9,
+    0.91,
+    0.87
+   ],
+   "49": [
+    0.935,
+    0.91,
+    0.86
+   ],
+   "13": [
+    0.93,
+    0.94,
+    0.96
+   ],
+   "16": [
+    0.89,
+    0.895,
+    0.84
+   ],
+   "52": [
+    0.955,
+    0.965,
+    0.965
+   ],
+   "7": [
+    0.925,
+    0.915,
+    0.905
+   ],
+   "48": [
+    0.825,
+    0.81,
+    0.81
+   ]
+  }
+ }
+}

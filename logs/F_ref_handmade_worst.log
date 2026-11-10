@@ -1,0 +1,51 @@
+[  0] L0   kept   -    skipped (reference: never learned)  (3s)
+[  1] U0   kept   -    forgot head   9.9%  probe  34.5%  forget imgs 0 (0 in buffer), deleted 0  (13s)
+[  2] L1   kept  70.6%  forgot head   7.7%  probe  47.7%  train acc 69.0%  (107s)
+[  3] L2   kept  73.6%  forgot head   7.2%  probe  53.3%  train acc 77.0%  (196s)
+[  4] L3   kept  73.3%  forgot head   8.4%  probe  55.4%  train acc 72.2%  (284s)
+[  5] L4   kept  76.2%  forgot head   8.2%  probe  58.3%  train acc 80.4%  (374s)
+[  6] L5   kept  76.9%  forgot head  13.0%  probe  60.1%  train acc 80.7%  (461s)
+[  7] L6   kept  78.2%  forgot head  11.0%  probe  61.1%  train acc 86.2%  (550s)
+[  8] L7   kept  78.4%  forgot head  10.1%  probe  63.9%  train acc 89.2%  (640s)
+[  9] L8   kept  77.4%  forgot head   6.8%  probe  63.9%  train acc 89.6%  (728s)
+[ 10] L9   kept  77.3%  forgot head  11.3%  probe  62.9%  train acc 90.4%  (822s)
+{
+ "til": {
+  "RA": 0.7726,
+  "FA": NaN,
+  "Spill": 0.0,
+  "Relapse": NaN,
+  "spill_list": [
+   0.0
+  ],
+  "relapse_list": [
+   NaN
+  ]
+ },
+ "cil": {
+  "RA": 0.4153,
+  "FA": NaN,
+  "Spill": 0.0,
+  "Relapse": NaN,
+  "spill_list": [
+   0.0
+  ],
+  "relapse_list": [
+   NaN
+  ]
+ },
+ "probe": {
+  "before": 0.3449999999999999,
+  "after_U": 0.3449999999999999,
+  "end": 0.629,
+  "peak_rise": 0.2940000000000001,
+  "end_rise": 0.2840000000000001,
+  "per_item": {
+   "0": [
+    0.345,
+    0.345,
+    0.629
+   ]
+  }
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "config": {
+  "name": "F_feat_layer_handmade_worst",
+  "stream": "handmade_worst",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "layer3,layer4",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_total_frac": 0.3,
+  "layer_images": 500,
+  "feature_steps": 50,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": false,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7931,
+   "FA": 0.148,
+   "Spill": 0.0,
+   "Relapse": 0.048,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.048
+   ]
+  },
+  "cil": {
+   "RA": 0.4281,
+   "FA": 0.0,
+   "Spill": 0.0,
+   "Relapse": 0.1,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.1
+   ]
+  },
+  "probe": {
+   "before": 0.5730000000000001,
+   "after_U": 0.13899999999999998,
+   "end": 0.643,
+   "peak_rise": 0.512,
+   "end_rise": 0.504,
+   "per_item": {
+    "0": [
+     0.573,
+     0.139,
+     0.643
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "layer_dims": {
+    "layer3.0.conv1": 26,
+    "layer3.0.conv2": 30,
+    "layer3.0.downsample.0": 6,
+    "layer3.1.conv1": 38,
+    "layer3.1.conv2": 28,
+    "layer4.0.conv1": 23,
+    "layer4.0.conv2": 19,
+    "layer4.0.downsample.0": 6,
+    "layer4.1.conv1": 18,
+    "layer4.1.conv2": 10
+   },
+   "feature_loss": [
+    0.9996851086616516,
+    0.0
+   ],
+   "request": 1,
+   "item": 0,
+   "forget_images": 5000,
+   "in_buffer": 2000,
+   "retain_images": 0,
+   "bad_teacher_seed": 1,
+   "removed": 2000
+  }
+ ]
+}

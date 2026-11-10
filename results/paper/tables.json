@@ -1,0 +1,149 @@
+{
+ "T1a CIFAR-100, worst case: where the forgotten task hides": {},
+ "T1b Tiny-ImageNet-100, worst case": {},
+ "T1c ER learner (CIFAR-100), worst case": {},
+ "T1d CIFAR-100, 15 requests: block probes": {},
+ "T2a CIFAR-100, 15 requests: all unlearning methods": {},
+ "T2b CIFAR-100, 15 requests: guards (Phase F)": {
+  "bt": [
+   {
+    "RA": 0.7694,
+    "FA": 0.1168,
+    "Spill": 0.0786,
+    "Relapse": 0.0272,
+    "RA_cil": 0.5404,
+    "probe end": 0.7609999999999999,
+    "excess after U": 0.1748,
+    "excess end": 0.0642
+   },
+   {
+    "RA": 0.7916,
+    "FA": 0.1326,
+    "Spill": 0.1592,
+    "Relapse": 0.0428,
+    "RA_cil": 0.517,
+    "probe end": 0.7576,
+    "excess after U": 0.14800000000000005,
+    "excess end": 0.06300000000000001
+   },
+   {
+    "RA": 0.7598,
+    "FA": 0.0816,
+    "Spill": 0.1522,
+    "Relapse": 0.0168,
+    "RA_cil": 0.5454,
+    "probe end": 0.7516000000000002,
+    "excess after U": 0.22859999999999997,
+    "excess end": 0.09260000000000006
+   }
+  ],
+  "proj": [
+   {
+    "RA": 0.7692,
+    "FA": 0.1004,
+    "Spill": 0.0906,
+    "Relapse": 0.0208,
+    "RA_cil": 0.5534,
+    "probe end": 0.7528,
+    "excess after U": 0.17140000000000002,
+    "excess end": 0.05599999999999998
+   },
+   {
+    "RA": 0.794,
+    "FA": 0.109,
+    "Spill": 0.1896,
+    "Relapse": 0.0212,
+    "RA_cil": 0.5372,
+    "probe end": 0.7544000000000001,
+    "excess after U": 0.1446000000000001,
+    "excess end": 0.059800000000000006
+   },
+   {
+    "RA": 0.7714,
+    "FA": 0.0802,
+    "Spill": 0.134,
+    "Relapse": 0.0154,
+    "RA_cil": 0.5414,
+    "probe end": 0.7478000000000001,
+    "excess after U": 0.22279999999999997,
+    "excess end": 0.08880000000000002
+   }
+  ],
+  "layer": [
+   {
+    "RA": 0.7588,
+    "FA": 0.0906,
+    "Spill": 0.0906,
+    "Relapse": 0.0144,
+    "RA_cil": 0.5448,
+    "probe end": 0.7609999999999999,
+    "excess after U": 0.17220000000000005,
+    "excess end": 0.06419999999999997
+   },
+   {
+    "RA": 0.7968,
+    "FA": 0.0822,
+    "Spill": 0.1732,
+    "Relapse": 0.0216,
+    "RA_cil": 0.5304,
+    "probe end": 0.7608,
+    "excess after U": 0.15860000000000005,
+    "excess end": 0.0662
+   },
+   {
+    "RA": 0.7818,
+    "FA": 0.089,
+    "Spill": 0.1198,
+    "Relapse": 0.0098,
+    "RA_cil": 0.5612,
+    "probe end": 0.7525999999999999,
+    "excess after U": 0.22360000000000002,
+    "excess end": 0.09359999999999997
+   }
+  ]
+ },
+ "T2c Tiny-ImageNet-100, 15 requests": {},
+ "T2d ER learner, 15 requests": {},
+ "T2e CIFAR-100, worst case: all methods": {},
+ "T3 CIFAR-100, class level, 30 requests": {
+  "bt": [
+   {
+    "RA": 0.7471,
+    "FA": 0.073,
+    "Spill": 1.1835,
+    "Relapse": 0.0525,
+    "RA_cil": 0.4394,
+    "probe end": 0.8657499999999999,
+    "excess after U": 0.11425,
+    "excess end": 0.006249999999999978
+   }
+  ],
+  "layer": [
+   {
+    "RA": 0.7401,
+    "FA": 0.044,
+    "Spill": 1.111,
+    "Relapse": 0.037,
+    "RA_cil": 0.4461,
+    "probe end": 0.8612499999999998,
+    "excess after U": 0.11000000000000003,
+    "excess end": 0.0017499999999999682
+   }
+  ]
+ },
+ "T5 CIFAR-100, long stream: 100 class-level requests (1 seed)": {},
+ "Causes of relapse (wolf, CIFAR-100): buffer kept vs purged, similar vs dissimilar later task": {
+  "purged_similar": [
+   [
+    -0.019999999999999907,
+    0.06499999999999995,
+    0.004999999999999893,
+    0.025000000000000022,
+    -0.015000000000000013,
+    -2.220446049250313e-16,
+    0.04500000000000015,
+    0.05499999999999983
+   ]
+  ]
+ }
+}

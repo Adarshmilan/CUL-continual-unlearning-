@@ -1,0 +1,93 @@
+{
+ "config": {
+  "name": "F_fixes_handmade_worst_s2",
+  "stream": "handmade_worst",
+  "seed": 2,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_total_frac": 0.3,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": false,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.78,
+   "FA": 0.109,
+   "Spill": 0.0,
+   "Relapse": 0.009,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.009
+   ]
+  },
+  "cil": {
+   "RA": 0.4142,
+   "FA": 0.0,
+   "Spill": 0.0,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.0
+   ]
+  },
+  "probe": {
+   "before": 0.576,
+   "after_U": 0.454,
+   "end": 0.6450000000000001,
+   "peak_rise": 0.20300000000000012,
+   "end_rise": 0.19100000000000011,
+   "per_item": {
+    "0": [
+     0.576,
+     0.454,
+     0.645
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "layer_dims": {},
+   "feature_loss": null,
+   "request": 1,
+   "item": 0,
+   "forget_images": 5000,
+   "in_buffer": 2000,
+   "retain_images": 0,
+   "bad_teacher_seed": 1,
+   "removed": 2000
+  }
+ ]
+}

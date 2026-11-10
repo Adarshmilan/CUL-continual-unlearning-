@@ -1,0 +1,188 @@
+{
+ "config": {
+  "name": "F_feat_task15_seed0",
+  "stream": "task15_seed0",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_total_frac": 0.3,
+  "layer_images": 500,
+  "feature_steps": 50,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": false,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7996,
+   "FA": 0.1014,
+   "Spill": 0.0458,
+   "Relapse": 0.015,
+   "spill_list": [
+    0.01,
+    0.02,
+    0.077,
+    0.066,
+    0.056
+   ],
+   "relapse_list": [
+    0.0,
+    0.033,
+    0.02,
+    0.022,
+    0.0
+   ]
+  },
+  "cil": {
+   "RA": 0.546,
+   "FA": 0.0,
+   "Spill": 0.1664,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.088,
+    0.077,
+    0.076,
+    0.392,
+    0.199
+   ],
+   "relapse_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "probe": {
+   "before": 0.7969999999999999,
+   "after_U": 0.7793999999999999,
+   "end": 0.7662000000000001,
+   "peak_rise": 0.01200000000000001,
+   "end_rise": -0.013199999999999967,
+   "per_item": {
+    "5": [
+     0.732,
+     0.73,
+     0.741
+    ],
+    "3": [
+     0.734,
+     0.721,
+     0.709
+    ],
+    "2": [
+     0.849,
+     0.801,
+     0.815
+    ],
+    "8": [
+     0.855,
+     0.844,
+     0.765
+    ],
+    "4": [
+     0.815,
+     0.801,
+     0.801
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "layer_dims": {},
+   "feature_loss": [
+    0.2402106523513794,
+    0.1482558697462082
+   ],
+   "request": 4,
+   "item": 5,
+   "forget_images": 5000,
+   "in_buffer": 494,
+   "retain_images": 1506,
+   "bad_teacher_seed": 5,
+   "removed": 494
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": [
+    0.24061450362205505,
+    0.11306684464216232
+   ],
+   "request": 7,
+   "item": 3,
+   "forget_images": 5000,
+   "in_buffer": 326,
+   "retain_images": 1674,
+   "bad_teacher_seed": 9,
+   "removed": 326
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": [
+    0.19752570986747742,
+    0.14253664016723633
+   ],
+   "request": 8,
+   "item": 2,
+   "forget_images": 5000,
+   "in_buffer": 359,
+   "retain_images": 1315,
+   "bad_teacher_seed": 9,
+   "removed": 359
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": [
+    0.21010424196720123,
+    0.12886719405651093
+   ],
+   "request": 10,
+   "item": 8,
+   "forget_images": 5000,
+   "in_buffer": 857,
+   "retain_images": 1143,
+   "bad_teacher_seed": 13,
+   "removed": 857
+  },
+  {
+   "layer_dims": {},
+   "feature_loss": [
+    0.25538691878318787,
+    0.09889456629753113
+   ],
+   "request": 14,
+   "item": 4,
+   "forget_images": 5000,
+   "in_buffer": 199,
+   "retain_images": 1801,
+   "bad_teacher_seed": 14,
+   "removed": 199
+  }
+ ]
+}

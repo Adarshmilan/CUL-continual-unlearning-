@@ -1,0 +1,375 @@
+{
+ "task15 (3 seeds)": {
+  "fixes": [
+   {
+    "RA": 0.7694,
+    "FA": 0.1168,
+    "Spill": 0.0786,
+    "Relapse": 0.0272,
+    "RA_cil": 0.5404,
+    "probe_after": 0.7749999999999999,
+    "probe_end": 0.7609999999999999,
+    "minutes": 15.479114743073781,
+    "ref_end": 0.6968,
+    "excess_after": 0.1748,
+    "excess_end": 0.0642,
+    "excess_rise": -0.1106,
+    "excess_peak_rise": 0.007200000000000028
+   },
+   {
+    "RA": 0.7916,
+    "FA": 0.1326,
+    "Spill": 0.1592,
+    "Relapse": 0.0428,
+    "RA_cil": 0.517,
+    "probe_after": 0.7614000000000001,
+    "probe_end": 0.7576,
+    "minutes": 16.577427899837495,
+    "ref_end": 0.6946,
+    "excess_after": 0.14800000000000005,
+    "excess_end": 0.06300000000000001,
+    "excess_rise": -0.08500000000000003,
+    "excess_peak_rise": 0.006200000000000006
+   },
+   {
+    "RA": 0.7598,
+    "FA": 0.0816,
+    "Spill": 0.1522,
+    "Relapse": 0.0168,
+    "RA_cil": 0.5454,
+    "probe_after": 0.7716,
+    "probe_end": 0.7516000000000002,
+    "minutes": 16.643065317471823,
+    "ref_end": 0.659,
+    "excess_after": 0.22859999999999997,
+    "excess_end": 0.09260000000000006,
+    "excess_rise": -0.13599999999999993,
+    "excess_peak_rise": 0.0
+   }
+  ],
+  "proj": [
+   {
+    "RA": 0.7692,
+    "FA": 0.1004,
+    "Spill": 0.0906,
+    "Relapse": 0.0208,
+    "RA_cil": 0.5534,
+    "probe_after": 0.7716,
+    "probe_end": 0.7528,
+    "minutes": 15.55115821758906,
+    "ref_end": 0.6968,
+    "excess_after": 0.17140000000000002,
+    "excess_end": 0.05599999999999998,
+    "excess_rise": -0.11540000000000003,
+    "excess_peak_rise": 0.0013999999999999568
+   },
+   {
+    "RA": 0.794,
+    "FA": 0.109,
+    "Spill": 0.1896,
+    "Relapse": 0.0212,
+    "RA_cil": 0.5372,
+    "probe_after": 0.758,
+    "probe_end": 0.7544000000000001,
+    "minutes": 16.67419498761495,
+    "ref_end": 0.6946,
+    "excess_after": 0.1446000000000001,
+    "excess_end": 0.059800000000000006,
+    "excess_rise": -0.08480000000000007,
+    "excess_peak_rise": 0.0016000000000000014
+   },
+   {
+    "RA": 0.7714,
+    "FA": 0.0802,
+    "Spill": 0.134,
+    "Relapse": 0.0154,
+    "RA_cil": 0.5414,
+    "probe_after": 0.7657999999999999,
+    "probe_end": 0.7478000000000001,
+    "minutes": 16.71192854642868,
+    "ref_end": 0.659,
+    "excess_after": 0.22279999999999997,
+    "excess_end": 0.08880000000000002,
+    "excess_rise": -0.134,
+    "excess_peak_rise": 0.0
+   }
+  ],
+  "layer": [
+   {
+    "RA": 0.7588,
+    "FA": 0.0906,
+    "Spill": 0.0906,
+    "Relapse": 0.0144,
+    "RA_cil": 0.5448,
+    "probe_after": 0.7724,
+    "probe_end": 0.7609999999999999,
+    "minutes": 23.40991948048274,
+    "ref_end": 0.6968,
+    "excess_after": 0.17220000000000005,
+    "excess_end": 0.06419999999999997,
+    "excess_rise": -0.10800000000000007,
+    "excess_peak_rise": 0.002200000000000002
+   },
+   {
+    "RA": 0.7968,
+    "FA": 0.0822,
+    "Spill": 0.1732,
+    "Relapse": 0.0216,
+    "RA_cil": 0.5304,
+    "probe_after": 0.7719999999999999,
+    "probe_end": 0.7608,
+    "minutes": 23.067529888947806,
+    "ref_end": 0.6946,
+    "excess_after": 0.15860000000000005,
+    "excess_end": 0.0662,
+    "excess_rise": -0.09240000000000007,
+    "excess_peak_rise": 0.007400000000000006
+   },
+   {
+    "RA": 0.7818,
+    "FA": 0.089,
+    "Spill": 0.1198,
+    "Relapse": 0.0098,
+    "RA_cil": 0.5612,
+    "probe_after": 0.7666,
+    "probe_end": 0.7525999999999999,
+    "minutes": 23.356641213099163,
+    "ref_end": 0.659,
+    "excess_after": 0.22360000000000002,
+    "excess_end": 0.09359999999999997,
+    "excess_rise": -0.13000000000000006,
+    "excess_peak_rise": 0.0010000000000000009
+   }
+  ],
+  "feat": [
+   {
+    "RA": 0.7996,
+    "FA": 0.1014,
+    "Spill": 0.0458,
+    "Relapse": 0.015,
+    "RA_cil": 0.546,
+    "probe_after": 0.7793999999999999,
+    "probe_end": 0.7662000000000001,
+    "minutes": 17.53018565972646,
+    "ref_end": 0.6968,
+    "excess_after": 0.17919999999999997,
+    "excess_end": 0.06939999999999999,
+    "excess_rise": -0.10979999999999997,
+    "excess_peak_rise": 0.004600000000000026
+   }
+  ]
+ },
+ "worst": {
+  "fixes": [
+   {
+    "RA": 0.7941,
+    "FA": 0.14,
+    "Spill": 0.0,
+    "Relapse": 0.04,
+    "RA_cil": 0.4204,
+    "probe_after": 0.312,
+    "probe_end": 0.6740000000000002,
+    "minutes": 13.496267541249592,
+    "ref_end": 0.629,
+    "excess_after": -0.03299999999999992,
+    "excess_end": 0.04500000000000015,
+    "excess_rise": 0.07800000000000007,
+    "excess_peak_rise": 0.09399999999999992
+   },
+   {
+    "RA": 0.7703,
+    "FA": 0.084,
+    "Spill": 0.0,
+    "Relapse": 0.016,
+    "RA_cil": 0.397,
+    "probe_after": 0.45600000000000007,
+    "probe_end": 0.633,
+    "minutes": 14.428979663054148,
+    "ref_end": 0.6260000000000001,
+    "excess_after": 0.10200000000000009,
+    "excess_end": 0.006999999999999895,
+    "excess_rise": -0.0950000000000002,
+    "excess_peak_rise": 0.0
+   },
+   {
+    "RA": 0.78,
+    "FA": 0.109,
+    "Spill": 0.0,
+    "Relapse": 0.009,
+    "RA_cil": 0.4142,
+    "probe_after": 0.454,
+    "probe_end": 0.6450000000000001,
+    "minutes": 14.305712147553761,
+    "ref_end": 0.624,
+    "excess_after": 0.11100000000000004,
+    "excess_end": 0.02100000000000013,
+    "excess_rise": -0.08999999999999991,
+    "excess_peak_rise": 0.0
+   }
+  ],
+  "proj": [
+   {
+    "RA": 0.7876,
+    "FA": 0.094,
+    "Spill": 0.0,
+    "Relapse": 0.005,
+    "RA_cil": 0.402,
+    "probe_after": 0.28900000000000003,
+    "probe_end": 0.651,
+    "minutes": 13.554978207747142,
+    "ref_end": 0.629,
+    "excess_after": -0.05599999999999988,
+    "excess_end": 0.02200000000000002,
+    "excess_rise": 0.0779999999999999,
+    "excess_peak_rise": 0.13199999999999984
+   }
+  ],
+  "layer": [
+   {
+    "RA": 0.7884,
+    "FA": 0.123,
+    "Spill": 0.0,
+    "Relapse": 0.023,
+    "RA_cil": 0.3946,
+    "probe_after": 0.31,
+    "probe_end": 0.647,
+    "minutes": 16.8312637090683,
+    "ref_end": 0.629,
+    "excess_after": -0.03499999999999992,
+    "excess_end": 0.018000000000000016,
+    "excess_rise": 0.052999999999999936,
+    "excess_peak_rise": 0.12299999999999983
+   },
+   {
+    "RA": 0.7773,
+    "FA": 0.093,
+    "Spill": 0.0,
+    "Relapse": 0.007,
+    "RA_cil": 0.3852,
+    "probe_after": 0.475,
+    "probe_end": 0.633,
+    "minutes": 15.4915442943573,
+    "ref_end": 0.6260000000000001,
+    "excess_after": 0.121,
+    "excess_end": 0.006999999999999895,
+    "excess_rise": -0.1140000000000001,
+    "excess_peak_rise": 0.0
+   },
+   {
+    "RA": 0.7822,
+    "FA": 0.12,
+    "Spill": 0.0,
+    "Relapse": 0.02,
+    "RA_cil": 0.4088,
+    "probe_after": 0.47800000000000004,
+    "probe_end": 0.6900000000000001,
+    "minutes": 16.25399822394053,
+    "ref_end": 0.624,
+    "excess_after": 0.13500000000000006,
+    "excess_end": 0.06600000000000006,
+    "excess_rise": -0.069,
+    "excess_peak_rise": 0.0
+   }
+  ],
+  "feat": [
+   {
+    "RA": 0.7911,
+    "FA": 0.11,
+    "Spill": 0.0,
+    "Relapse": 0.01,
+    "RA_cil": 0.4362,
+    "probe_after": 0.156,
+    "probe_end": 0.645,
+    "minutes": 14.37451677719752,
+    "ref_end": 0.629,
+    "excess_after": -0.18899999999999992,
+    "excess_end": 0.016000000000000014,
+    "excess_rise": 0.20499999999999993,
+    "excess_peak_rise": 0.2699999999999999
+   },
+   {
+    "RA": 0.7877,
+    "FA": 0.093,
+    "Spill": 0.0,
+    "Relapse": 0.007,
+    "RA_cil": 0.4101,
+    "probe_after": 0.22799999999999998,
+    "probe_end": 0.623,
+    "minutes": 14.329492632548014,
+    "ref_end": 0.6260000000000001,
+    "excess_after": -0.126,
+    "excess_end": -0.0030000000000001137,
+    "excess_rise": 0.12299999999999989,
+    "excess_peak_rise": 0.20599999999999996
+   },
+   {
+    "RA": 0.7987,
+    "FA": 0.101,
+    "Spill": 0.0,
+    "Relapse": 0.007,
+    "RA_cil": 0.4086,
+    "probe_after": 0.267,
+    "probe_end": 0.651,
+    "minutes": 14.484873382250468,
+    "ref_end": 0.624,
+    "excess_after": -0.07599999999999996,
+    "excess_end": 0.027000000000000024,
+    "excess_rise": 0.10299999999999998,
+    "excess_peak_rise": 0.16399999999999992
+   }
+  ],
+  "feat_layer": [
+   {
+    "RA": 0.7931,
+    "FA": 0.148,
+    "Spill": 0.0,
+    "Relapse": 0.048,
+    "RA_cil": 0.4281,
+    "probe_after": 0.13899999999999998,
+    "probe_end": 0.643,
+    "minutes": 15.583180403709411,
+    "ref_end": 0.629,
+    "excess_after": -0.20599999999999993,
+    "excess_end": 0.014000000000000012,
+    "excess_rise": 0.21999999999999995,
+    "excess_peak_rise": 0.2919999999999998
+   }
+  ]
+ },
+ "class30": {
+  "fixes": [
+   {
+    "RA": 0.7471,
+    "FA": 0.073,
+    "Spill": 1.1835,
+    "Relapse": 0.0525,
+    "RA_cil": 0.4394,
+    "probe_after": 0.8487499999999999,
+    "probe_end": 0.8657499999999999,
+    "minutes": 23.941891543070476,
+    "ref_end": 0.8595,
+    "excess_after": 0.11425,
+    "excess_end": 0.006249999999999978,
+    "excess_rise": -0.10800000000000005,
+    "excess_peak_rise": 0.020749999999999973
+   }
+  ],
+  "layer": [
+   {
+    "RA": 0.7401,
+    "FA": 0.044,
+    "Spill": 1.111,
+    "Relapse": 0.037,
+    "RA_cil": 0.4461,
+    "probe_after": 0.8444999999999998,
+    "probe_end": 0.8612499999999998,
+    "minutes": 47.305836077531175,
+    "ref_end": 0.8595,
+    "excess_after": 0.11000000000000003,
+    "excess_end": 0.0017499999999999682,
+    "excess_rise": -0.10825000000000004,
+    "excess_peak_rise": 0.02199999999999998
+   }
+  ]
+ }
+}

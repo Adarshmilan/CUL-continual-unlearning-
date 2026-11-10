@@ -1,0 +1,432 @@
+{
+ "config": {
+  "name": "F_ref_class30_seed0",
+  "stream": "class30_seed0",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": true,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7571,
+   "FA": NaN,
+   "Spill": 0.0,
+   "Relapse": NaN,
+   "spill_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "relapse_list": [
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "cil": {
+   "RA": 0.3945,
+   "FA": NaN,
+   "Spill": 0.0,
+   "Relapse": NaN,
+   "spill_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "relapse_list": [
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "probe": {
+   "before": 0.7344999999999999,
+   "after_U": 0.7344999999999999,
+   "end": 0.8595,
+   "peak_rise": 0.14075000000000007,
+   "end_rise": 0.12500000000000006,
+   "per_item": {
+    "60": [
+     0.635,
+     0.635,
+     0.845
+    ],
+    "62": [
+     0.66,
+     0.66,
+     0.79
+    ],
+    "63": [
+     0.7,
+     0.7,
+     0.88
+    ],
+    "64": [
+     0.705,
+     0.705,
+     0.885
+    ],
+    "61": [
+     0.605,
+     0.605,
+     0.91
+    ],
+    "67": [
+     0.545,
+     0.545,
+     0.855
+    ],
+    "65": [
+     0.745,
+     0.745,
+     0.86
+    ],
+    "69": [
+     0.625,
+     0.625,
+     0.855
+    ],
+    "68": [
+     0.63,
+     0.63,
+     0.82
+    ],
+    "41": [
+     0.645,
+     0.645,
+     0.935
+    ],
+    "42": [
+     0.77,
+     0.77,
+     0.83
+    ],
+    "66": [
+     0.715,
+     0.715,
+     0.82
+    ],
+    "40": [
+     0.88,
+     0.88,
+     0.91
+    ],
+    "47": [
+     0.74,
+     0.74,
+     0.825
+    ],
+    "49": [
+     0.85,
+     0.85,
+     0.895
+    ],
+    "13": [
+     0.91,
+     0.91,
+     0.94
+    ],
+    "16": [
+     0.77,
+     0.77,
+     0.775
+    ],
+    "52": [
+     0.935,
+     0.935,
+     0.935
+    ],
+    "7": [
+     0.86,
+     0.86,
+     0.86
+    ],
+    "48": [
+     0.765,
+     0.765,
+     0.765
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "request": 1,
+   "item": 60,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 2,
+   "item": 62,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 3,
+   "item": 63,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 4,
+   "item": 64,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 5,
+   "item": 61,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 6,
+   "item": 67,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 7,
+   "item": 65,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 8,
+   "item": 69,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 9,
+   "item": 68,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 11,
+   "item": 41,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 13,
+   "item": 42,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 14,
+   "item": 66,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 15,
+   "item": 40,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 17,
+   "item": 47,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 20,
+   "item": 49,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 21,
+   "item": 13,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 24,
+   "item": 16,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 27,
+   "item": 52,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 28,
+   "item": 7,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 29,
+   "item": 48,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  }
+ ]
+}

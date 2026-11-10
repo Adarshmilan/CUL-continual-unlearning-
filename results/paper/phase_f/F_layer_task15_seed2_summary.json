@@ -1,0 +1,227 @@
+{
+ "config": {
+  "name": "F_layer_task15_seed2",
+  "stream": "task15_seed2",
+  "seed": 2,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "layer3,layer4",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": false,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7818,
+   "FA": 0.089,
+   "Spill": 0.1198,
+   "Relapse": 0.0098,
+   "spill_list": [
+    0.059,
+    0.011,
+    0.128,
+    0.315,
+    0.086
+   ],
+   "relapse_list": [
+    0.015,
+    0.006,
+    0.023,
+    0.005,
+    0.0
+   ]
+  },
+  "cil": {
+   "RA": 0.5612,
+   "FA": 0.0,
+   "Spill": 0.2204,
+   "Relapse": 0.0,
+   "spill_list": [
+    0.3,
+    0.103,
+    0.204,
+    0.157,
+    0.338
+   ],
+   "relapse_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "probe": {
+   "before": 0.7774000000000001,
+   "after_U": 0.7666,
+   "end": 0.7525999999999999,
+   "peak_rise": 0.007000000000000029,
+   "end_rise": -0.014000000000000012,
+   "per_item": {
+    "5": [
+     0.755,
+     0.757,
+     0.725
+    ],
+    "1": [
+     0.771,
+     0.765,
+     0.752
+    ],
+    "6": [
+     0.779,
+     0.748,
+     0.742
+    ],
+    "7": [
+     0.806,
+     0.804,
+     0.785
+    ],
+    "3": [
+     0.776,
+     0.759,
+     0.759
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "layer_dims": {
+    "layer3.0.conv1": 115,
+    "layer3.0.conv2": 230,
+    "layer3.0.downsample.0": 1,
+    "layer3.1.conv1": 230,
+    "layer3.1.conv2": 230,
+    "layer4.0.conv1": 230,
+    "layer4.0.conv2": 460,
+    "layer4.0.downsample.0": 12,
+    "layer4.1.conv1": 460,
+    "layer4.1.conv2": 460
+   },
+   "feature_loss": null,
+   "request": 3,
+   "item": 5,
+   "forget_images": 5000,
+   "in_buffer": 664,
+   "retain_images": 1336,
+   "bad_teacher_seed": 3,
+   "removed": 664
+  },
+  {
+   "layer_dims": {
+    "layer3.0.conv1": 230,
+    "layer3.0.conv2": 460,
+    "layer3.0.downsample.0": 5,
+    "layer3.1.conv1": 460,
+    "layer3.1.conv2": 460,
+    "layer4.0.conv1": 460,
+    "layer4.0.conv2": 920,
+    "layer4.0.downsample.0": 37,
+    "layer4.1.conv1": 920,
+    "layer4.1.conv2": 920
+   },
+   "feature_loss": null,
+   "request": 4,
+   "item": 1,
+   "forget_images": 5000,
+   "in_buffer": 668,
+   "retain_images": 668,
+   "bad_teacher_seed": 5,
+   "removed": 668
+  },
+  {
+   "layer_dims": {
+    "layer3.0.conv1": 345,
+    "layer3.0.conv2": 690,
+    "layer3.0.downsample.0": 5,
+    "layer3.1.conv1": 690,
+    "layer3.1.conv2": 690,
+    "layer4.0.conv1": 690,
+    "layer4.0.conv2": 1380,
+    "layer4.0.downsample.0": 49,
+    "layer4.1.conv1": 1380,
+    "layer4.1.conv2": 1380
+   },
+   "feature_loss": null,
+   "request": 9,
+   "item": 6,
+   "forget_images": 5000,
+   "in_buffer": 275,
+   "retain_images": 1725,
+   "bad_teacher_seed": 12,
+   "removed": 275
+  },
+  {
+   "layer_dims": {
+    "layer3.0.conv1": 460,
+    "layer3.0.conv2": 920,
+    "layer3.0.downsample.0": 5,
+    "layer3.1.conv1": 920,
+    "layer3.1.conv2": 920,
+    "layer4.0.conv1": 920,
+    "layer4.0.conv2": 1840,
+    "layer4.0.downsample.0": 72,
+    "layer4.1.conv1": 1840,
+    "layer4.1.conv2": 1840
+   },
+   "feature_loss": null,
+   "request": 11,
+   "item": 7,
+   "forget_images": 5000,
+   "in_buffer": 247,
+   "retain_images": 1753,
+   "bad_teacher_seed": 12,
+   "removed": 247
+  },
+  {
+   "layer_dims": {
+    "layer3.0.conv1": 575,
+    "layer3.0.conv2": 1150,
+    "layer3.0.downsample.0": 6,
+    "layer3.1.conv1": 1150,
+    "layer3.1.conv2": 1150,
+    "layer4.0.conv1": 1150,
+    "layer4.0.conv2": 2300,
+    "layer4.0.downsample.0": 83,
+    "layer4.1.conv1": 2300,
+    "layer4.1.conv2": 2300
+   },
+   "feature_loss": null,
+   "request": 14,
+   "item": 3,
+   "forget_images": 5000,
+   "in_buffer": 357,
+   "retain_images": 1643,
+   "bad_teacher_seed": 17,
+   "removed": 357
+  }
+ ]
+}

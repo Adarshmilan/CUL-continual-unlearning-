@@ -1,0 +1,109 @@
+{
+ "config": {
+  "name": "F_layerS_handmade_worst",
+  "stream": "handmade_worst",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "layer2,layer3,layer4",
+  "layer_ratio": 1.0,
+  "layer_max_frac": 0.25,
+  "layer_total_frac": 0.3,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": false,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7806,
+   "FA": 0.174,
+   "Spill": 0.0,
+   "Relapse": 0.072,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.072
+   ]
+  },
+  "cil": {
+   "RA": 0.4058,
+   "FA": 0.0,
+   "Spill": 0.0,
+   "Relapse": 0.102,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    0.102
+   ]
+  },
+  "probe": {
+   "before": 0.532,
+   "after_U": 0.32799999999999996,
+   "end": 0.653,
+   "peak_rise": 0.3340000000000001,
+   "end_rise": 0.32500000000000007,
+   "per_item": {
+    "0": [
+     0.532,
+     0.328,
+     0.653
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "layer_dims": {
+    "layer2.0.conv1": 33,
+    "layer2.0.conv2": 69,
+    "layer2.0.downsample.0": 9,
+    "layer2.1.conv1": 73,
+    "layer2.1.conv2": 76,
+    "layer3.0.conv1": 67,
+    "layer3.0.conv2": 117,
+    "layer3.0.downsample.0": 15,
+    "layer3.1.conv1": 112,
+    "layer3.1.conv2": 101,
+    "layer4.0.conv1": 77,
+    "layer4.0.conv2": 76,
+    "layer4.0.downsample.0": 14,
+    "layer4.1.conv1": 61,
+    "layer4.1.conv2": 17
+   },
+   "feature_loss": null,
+   "request": 1,
+   "item": 0,
+   "forget_images": 5000,
+   "in_buffer": 2000,
+   "retain_images": 0,
+   "bad_teacher_seed": 1,
+   "removed": 2000
+  }
+ ]
+}

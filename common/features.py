@@ -39,3 +39,21 @@ def probe_accuracy(feats, labels, folds=5, seed=0):
     cv = StratifiedKFold(folds, shuffle=True, random_state=seed)
     scores = cross_val_score(clf, feats, labels, cv=cv)
     return float(scores.mean()), float(scores.std())
+
+
+BLOCKS = ["layer1", "layer2", "layer3", "layer4"]
+
+
+@torch.no_grad()
+def block_features(model, X, chunk=250):
+    """Average-pooled output of every ResNet block: {"layer1": [N, 64], ..., "layer4": [N, 512]} (numpy).
+    layer4 is the same as h(x) above. Used to see WHERE a forgotten class still lives (paper)."""
+    model.eval()
+    out = {b: [] for b in BLOCKS}
+    for i in range(0, len(X), chunk):
+        m, x = model, X[i:i + chunk]
+        x = m.maxpool(m.relu(m.bn1(m.conv1(x))))
+        for b in BLOCKS:
+            x = getattr(m, b)(x)
+            out[b].append(torch.flatten(torch.nn.functional.adaptive_avg_pool2d(x, 1), 1).float().cpu())
+    return {b: torch.cat(v).numpy() for b, v in out.items()}

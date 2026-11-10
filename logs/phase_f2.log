@@ -1,0 +1,7 @@
+=== START F_feat_handmade_worst 09:25
+./programs/run_queue.sh: line 5: 180413 Killed                     systemd-run --user --scope -q -p MemoryMax=4G -p MemorySwapMax=0 --setenv=PYTHONPATH="$PWD" python3 -u -m common.clu "$cfg" > "logs/${name}.log" 2>&1
+=== FAILED F_feat_handmade_worst 09:31 (see logs/F_feat_handmade_worst.log)
+=== START F_layerS_handmade_worst 09:31
+./programs/run_queue.sh: line 5: 181029 Killed                     systemd-run --user --scope -q -p MemoryMax=4G -p MemorySwapMax=0 --setenv=PYTHONPATH="$PWD" python3 -u -m common.clu "$cfg" > "logs/${name}.log" 2>&1
+=== FAILED F_layerS_handmade_worst 09:33 (see logs/F_layerS_handmade_worst.log)
+=== START F_ref_handmade_worst_s1 09:33

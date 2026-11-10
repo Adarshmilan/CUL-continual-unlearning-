@@ -25,6 +25,18 @@ Signatures (program 16): "plain" = PCA of the forgotten class's features around 
 both second moments around the retain mean, i.e. directions where the forgotten class has much
 more energy than the kept classes. Program 16 found plain signatures overlap strongly with kept classes.
 
+The layer guard (Phase F, "guard_layers"): a weight-level guard in the style of GPM (Saha et al., 2021),
+used the other way round. After an item is unlearned, for each guarded conv layer we store the input
+directions (unfolded patches) where the forgotten classes have much more energy than the kept
+classes ("specific" directions: generalized eigenvectors of C_forget vs C_retain with ratio > layer_ratio).
+During later learning every guarded weight gradient has those input directions removed, so the layer's
+response to forgotten-class-specific inputs cannot change: later learning can't rebuild the class there.
+It stores no images, only a few directions per layer.
+
+Reference mode ("reference": True): the retrain target on the same stream. Forgotten items are never
+learned (their L requests are skipped, class-level: their images are left out), U requests only mark
+them, so every row lines up with the real run and the probe curves can be compared row by row.
+
 One command:  python -m common.clu results/configs/relapse_guard.json
 """
 
@@ -40,9 +52,10 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
 from common.badteacher import badteacher_unlearn, make_bad_teacher
-from common.data import IndexedSubset, SplitCIFAR100, task_classes
+from common.data import IndexedSubset, SplitCIFAR100, SplitTiny100, task_classes
 from common.derpp import DERBuffer
-from common.features import features_of, penultimate, probe_accuracy
+from common.features import BLOCKS, block_features, features_of, penultimate, probe_accuracy
+from common.unlearn_methods import unlearn_other
 from common.metrics import all_metrics, item_view
 from common.models import resnet18_cifar
 from common.stream import load_stream
@@ -70,6 +83,26 @@ DEFAULTS = {
     "k": 5,
     "signature": "specific",       # "plain" | "specific"
     "signature_images": 1000,      # at most this many forget images to compute a signature
+    # layer guard (Phase F): weight-level, GPM-style, see the module docstring
+    "guard_layers": "",            # "" = off, or e.g. "layer4" / "layer3,layer4"
+    "layer_ratio": 2.0,            # keep input directions where forget energy > ratio x retain energy
+    "layer_max_frac": 0.1,         # at most this share of a layer's input dimensions per forgotten item
+    "layer_total_frac": 0.3,       # at most this share of a layer's input dimensions in total (all items)
+    "layer_images": 500,           # images (forget and retain each) used to measure a layer's inputs
+    # feature unlearning after BadTeacher (Phase F): collapse the forgotten classes' features
+    "feature_steps": 0,            # 0 = off
+    "feature_lr": 1e-4,
+    "feature_retain_weight": 1.0,  # weight of the retain feature-distillation term
+    # paper options
+    "dataset": "cifar100",         # "cifar100" | "tiny100" (data/tiny100_32.npz, see experiments/prepare_tiny_imagenet.py)
+    "unlearn_method": "badteacher",  # "badteacher" | "neggrad" | "randlabel" | "scrub" (common/unlearn_methods.py)
+    "unlearn_tau": 4.6,            # clamp of the forget term for neggrad / scrub (ln 100)
+    "probe_blocks": False,         # also probe the forgotten items at every ResNet block after every request
+    "requests": None,              # a request list [["L", 0], ["U", 3], ...] instead of a stream file
+    "tasks_by_name": None,         # {"0": [class names], ...}: custom tasks (CIFAR-100 names), else the 10 standard tasks
+    "level": None,                 # "task" | "class", needed with "requests"
+    # retrain reference on the same stream (Phase F)
+    "reference": False,
     # measuring
     "probe_folds": 5,
 }
@@ -111,6 +144,100 @@ def guard_penalty(h, signatures):
     return sum((hc @ U).pow(2).sum() for U in signatures) / denom
 
 
+def feature_unlearn(model, good, sample_forget, sample_retain, steps, lr, retain_weight, device):
+    """Pull forget features to the kept classes' mean feature (their class structure collapses),
+    while keeping retain features where the model before unlearning had them. BatchNorm frozen."""
+    opt = torch.optim.Adam(model.parameters(), lr=lr)
+    model.eval()
+    last = (float("nan"), float("nan"))
+    for _ in range(steps):
+        xf = sample_forget().to(device, non_blocking=True)
+        hf = penultimate(model, xf)
+        if sample_retain is not None:
+            xr = sample_retain().to(device, non_blocking=True)
+            hr = penultimate(model, xr)
+            with torch.no_grad():
+                hr_good = penultimate(good, xr)
+                target = hr_good.mean(0, keepdim=True)
+                scale = (hr_good - target).pow(2).sum(1).mean() + 1e-8
+            lf = (hf - target).pow(2).sum(1).mean() / scale
+            lr_ = (hr - hr_good).pow(2).sum(1).mean() / scale
+        else:                                   # nothing kept yet: collapse the forget features to their mean
+            with torch.no_grad():
+                target = hf.mean(0, keepdim=True)
+                scale = (hf - target).pow(2).sum(1).mean() + 1e-8
+            lf = (hf - target.detach()).pow(2).sum(1).mean() / scale
+            lr_ = torch.zeros((), device=device)
+        loss = lf + retain_weight * lr_
+        opt.zero_grad(set_to_none=True)
+        loss.backward()
+        opt.step()
+        last = (lf.item(), lr_.item())
+    return last
+
+
+def guarded_convs(model, spec):
+    """name -> conv module for every conv inside the listed blocks (e.g. "layer3,layer4")."""
+    out = {}
+    for block in [b.strip() for b in spec.split(",") if b.strip()]:
+        for name, m in getattr(model, block).named_modules():
+            if isinstance(m, torch.nn.Conv2d):
+                out[f"{block}.{name}"] = m
+    return out
+
+
+@torch.no_grad()
+def conv_input_moments(model, convs, X, chunk=100, patches_per_image=16, seed=0):
+    """Second moment of the unfolded input patches of each conv: name -> [d, d] (GPU, float32)."""
+    model.eval()
+    C = {n: None for n in convs}
+    count = {n: 0 for n in convs}
+    g = torch.Generator(device="cpu").manual_seed(seed)
+
+    def hook(name, conv):
+        def f(_, inputs, __):
+            x = inputs[0].float()
+            P = F.unfold(x, conv.kernel_size, dilation=conv.dilation, padding=conv.padding, stride=conv.stride)
+            P = P.transpose(1, 2)                                            # [B, L, d]
+            pick = torch.randint(0, P.shape[1], (patches_per_image,), generator=g).to(P.device)
+            P = P[:, pick].reshape(-1, P.shape[2])
+            C[name] = P.T @ P if C[name] is None else C[name] + P.T @ P
+            count[name] += P.shape[0]
+        return f
+
+    handles = [m.register_forward_hook(hook(n, m)) for n, m in convs.items()]
+    for i in range(0, len(X), chunk):
+        model(X[i:i + chunk])
+    for h in handles:
+        h.remove()
+    return {n: C[n] / count[n] for n in convs}
+
+
+def specific_input_basis(Cf, Cr, ratio, max_frac, eps=1e-4):
+    """Orthonormal [d, m] basis of input directions where forget energy > ratio x retain energy.
+    Computed on the GPU in float64; falls back to the CPU if the GPU is full (same result)."""
+    try:
+        return _specific_input_basis(Cf, Cr, ratio, max_frac, eps)
+    except torch.OutOfMemoryError:
+        torch.cuda.empty_cache()
+        return _specific_input_basis(Cf.cpu(), Cr.cpu(), ratio, max_frac, eps).to(Cf.device)
+
+
+def _specific_input_basis(Cf, Cr, ratio, max_frac, eps):
+    d = Cf.shape[0]
+    Cr = Cr.double() + eps * torch.trace(Cr.double()) / d * torch.eye(d, device=Cr.device, dtype=torch.float64)
+    w, V = torch.linalg.eigh(Cr)
+    Wh = V @ torch.diag(w.clamp_min(1e-12).rsqrt()) @ V.T                  # Cr^(-1/2)
+    mu, E = torch.linalg.eigh(Wh @ Cf.double() @ Wh)
+    order = torch.argsort(mu, descending=True)
+    keep = order[mu[order] > ratio][: max(1, int(max_frac * d))]
+    if len(keep) == 0:
+        return torch.zeros(d, 0, device=Cf.device)
+    B = Wh @ E[:, keep]                                                    # back to input space
+    Q, _ = torch.linalg.qr(B)
+    return Q.float()
+
+
 # ------------------------------------------------------------------ the runner
 
 
@@ -142,7 +269,17 @@ class CLURun:
         self.guard_basis = None                                                # orthonormal union (projection)
         self.forgotten = np.zeros(100, dtype=bool)
         self.learned = np.zeros(100, dtype=bool)
+        # reference mode: every class that is ever unlearned is never learned
+        self.never = set()
+        if cfg["reference"]:
+            for k, i in requests:
+                if k == "U":
+                    self.never |= set(self.classes_of(int(i)))
+        # layer guard: conv name -> orthonormal basis of protected input directions [d, m]
+        self.convs = guarded_convs(self.model, cfg["guard_layers"]) if cfg["guard_layers"] else {}
+        self.layer_basis = {}
 
+        self.train_targets = np.asarray(data.train_set.targets)
         # test images on the GPU, task columns for task-IL
         ts = data.test_set
         self.X = torch.stack([ts[i][0] for i in range(len(ts))]).to(device)
@@ -197,7 +334,10 @@ class CLURun:
     # ---- learning
     def learn(self, task):
         cfg = self.cfg
-        subset = IndexedSubset(self.data.train_set, self.data.train_indices(self.tasks[task]))
+        classes = [c for c in self.tasks[task] if c not in self.never]
+        if not classes:
+            return "skipped (reference: never learned)"
+        subset = IndexedSubset(self.data.train_set, self.data.train_indices(classes))
         loader = DataLoader(subset, batch_size=cfg["batch_size"], shuffle=True, num_workers=cfg["workers"],
                             pin_memory=torch.cuda.is_available())
         optimizer = torch.optim.SGD(self.model.parameters(), lr=cfg["lr"], momentum=0.9)
@@ -237,6 +377,10 @@ class CLURun:
                     guard_sum += g.item()
                 optimizer.zero_grad(set_to_none=True)
                 self.scaler.scale(loss).backward()
+                for name, M in self.layer_basis.items():
+                    wg = self.convs[name].weight.grad
+                    g2 = wg.view(wg.shape[0], -1)
+                    g2 -= (g2.float() @ M @ M.T).to(g2.dtype)
                 self.scaler.step(optimizer)
                 self.scaler.update()
                 buffer.add(idx, labels.cpu(), out[:n])
@@ -247,16 +391,22 @@ class CLURun:
                 raise RuntimeError(f"task {task}, epoch {epoch}: loss is not finite")
         del loader, optimizer
         gc.collect()
-        self.learned[self.tasks[task]] = True
+        self.learned[classes] = True
         note = f"train acc {correct / seen * 100:.1f}%"
         if use_penalty:
             note += f", guard share {guard_sum / steps:.3f}"
+        if len(classes) < len(self.tasks[task]):
+            note += f" ({len(self.tasks[task]) - len(classes)} classes left out: reference)"
         return note
 
     # ---- unlearning
     def unlearn(self, item, r):
         cfg, buffer, model = self.cfg, self.buffer, self.model
         cls = self.classes_of(item)
+        if cfg["reference"]:
+            self.forgotten[cls] = True
+            return {"request": r, "item": int(item), "forget_images": 0, "in_buffer": 0, "retain_images": 0,
+                    "bad_teacher_seed": -1, "removed": int(buffer.remove(cls))}
         all_forgotten = set(np.where(self.forgotten)[0].tolist()) | set(cls)
         n = len(buffer)
 
@@ -293,10 +443,29 @@ class CLURun:
         good = copy.deepcopy(model).eval()
         for p in good.parameters():
             p.requires_grad_(False)
-        among = self.tasks[self.task_of_class[item]] if self.level == "class" else None
-        bad, bad_seed, _ = make_bad_teacher(100, self.load_images(forget_idx[:256]), all_forgotten,
-                                            cfg["bad_teacher_seed"] + r, self.device, among=among)
-        badteacher_unlearn(model, good, bad, sample_forget, sample_retain, cfg["unlearn_steps"], cfg["unlearn_lr"], self.device)
+        bad, bad_seed = None, -1
+        if cfg["unlearn_method"] == "badteacher":
+            among = self.tasks[self.task_of_class[item]] if self.level == "class" else None
+            if among is not None and set(among) <= all_forgotten:
+                among = None          # the whole task is forgotten now: same as task-level forgetting
+            bad, bad_seed, _ = make_bad_teacher(100, self.load_images(forget_idx[:256]), all_forgotten,
+                                                cfg["bad_teacher_seed"] + r, self.device, among=among)
+            badteacher_unlearn(model, good, bad, sample_forget, sample_retain, cfg["unlearn_steps"], cfg["unlearn_lr"], self.device)
+        else:
+            T = self.train_targets
+            def with_labels(pool, n):
+                idx = self.rng.choice(pool, n, replace=len(pool) < n)
+                return self.load_images(idx), torch.as_tensor(T[idx], dtype=torch.long)
+            lab_forget = lambda: with_labels(forget_idx, fb)
+            lab_retain = (lambda: with_labels(retain_idx, min(rb, len(retain_idx)))) if len(retain_idx) else None
+            kept = np.where(self.learned & ~np.isin(np.arange(100), list(all_forgotten)))[0]
+            pool = kept if len(kept) else np.setdiff1d(np.arange(100), list(all_forgotten))
+            unlearn_other(cfg["unlearn_method"], model, good, lab_forget, lab_retain, cfg["unlearn_steps"],
+                          cfg["unlearn_lr"], self.device, random_label_pool=pool, tau=cfg["unlearn_tau"])
+        feat_loss = None
+        if cfg["feature_steps"]:
+            feat_loss = feature_unlearn(model, good, sample_forget, sample_retain, cfg["feature_steps"],
+                                        cfg["feature_lr"], cfg["feature_retain_weight"], self.device)
         del good, bad
         torch.cuda.empty_cache()
         self.forgotten[cls] = True
@@ -313,7 +482,34 @@ class CLURun:
         # 5. logit mask
         if cfg["mask_forgotten_logits"]:
             self.keep_cols[cls] = False
-        return {"request": r, "item": int(item), "forget_images": int(len(forget_idx)), "in_buffer": int(from_buffer),
+        # 6. layer guard: protect the forgotten classes' specific input directions (measured AFTER unlearning)
+        layer_dims = {}
+        if self.convs:
+            ri = buffer.indices[:len(buffer)]
+            ri = ri[~np.isin(buffer.labels[:len(buffer)], np.where(self.forgotten)[0])]
+            r2 = np.random.RandomState(2000 + r)
+            Xf = self.load_images(r2.choice(forget_idx, min(cfg["layer_images"], len(forget_idx)), replace=False), plain=True).to(self.device)
+            Cf = conv_input_moments(model, self.convs, Xf, seed=r)
+            if len(ri):
+                Xr = self.load_images(r2.choice(ri, min(cfg["layer_images"], len(ri)), replace=False), plain=True).to(self.device)
+                Cr = conv_input_moments(model, self.convs, Xr, seed=r + 1)
+            else:   # nothing kept yet: compare with an even spread of the forget energy
+                Xr = None
+                Cr = {n: torch.trace(C) / C.shape[0] * torch.eye(C.shape[0], device=C.device) for n, C in Cf.items()}
+            for name in self.convs:
+                B = specific_input_basis(Cf[name], Cr[name], cfg["layer_ratio"], cfg["layer_max_frac"])
+                if name in self.layer_basis:
+                    old = self.layer_basis[name]
+                    B = B - old @ (old.T @ B)                                  # only the new part
+                    B = B[:, torch.linalg.norm(B, dim=0) > 0.5]                 # drop near-duplicates
+                    B = torch.linalg.qr(B)[0] if B.shape[1] else B
+                    room = max(0, int(cfg["layer_total_frac"] * old.shape[0]) - old.shape[1])
+                    B = torch.cat([old, B[:, :room]], dim=1)          # total cap: the guard must leave room to learn
+                self.layer_basis[name] = B
+                layer_dims[name] = int(B.shape[1])
+            del Xf, Xr, Cf, Cr
+            torch.cuda.empty_cache()
+        return {"layer_dims": layer_dims, "feature_loss": feat_loss, "request": r, "item": int(item), "forget_images": int(len(forget_idx)), "in_buffer": int(from_buffer),
                 "retain_images": int(len(retain_idx)), "bad_teacher_seed": int(bad_seed), "removed": int(removed)}
 
     # ---- the whole stream
@@ -323,13 +519,20 @@ class CLURun:
         item_pos = {it: j for j, it in enumerate(self.items)}
         out = {"acc_cil": np.full((R, 100), np.nan), "acc_til": np.full((R, 100), np.nan),
                "learned": np.zeros((R, 100), bool), "forgotten": np.zeros((R, 100), bool),
-               "probe": np.full((R, n_items), np.nan), "probe_before": np.full(n_items, np.nan)}
+               "probe": np.full((R, n_items), np.nan), "probe_before": np.full(n_items, np.nan),
+               "probe_blocks": np.full((R, n_items, len(BLOCKS)), np.nan),
+               "probe_before_blocks": np.full((n_items, len(BLOCKS)), np.nan)}
+        cfg = self.cfg
         unlearn_log, start = [], time.time()
         for r, (kind, item) in enumerate(self.requests):
             if kind == "L":
                 note = self.learn(item)
             else:
                 out["probe_before"][item_pos[item]] = self.probe(item, self.test_features())
+                if cfg["probe_blocks"]:
+                    bf = block_features(self.model, self.X)
+                    for b, B in enumerate(BLOCKS):
+                        out["probe_before_blocks"][item_pos[item], b] = self.probe(item, bf[B])
                 u = self.unlearn(item, r)
                 unlearn_log.append(u)
                 note = f"forget imgs {u['forget_images']} ({u['in_buffer']} in buffer), deleted {u['removed']}"
@@ -341,6 +544,12 @@ class CLURun:
                 feats = self.test_features()
                 for it in gone:
                     out["probe"][r, item_pos[it]] = self.probe(it, feats)
+                if cfg["probe_blocks"]:
+                    bf = block_features(self.model, self.X)
+                    for it in gone:
+                        for b, B in enumerate(BLOCKS):
+                            out["probe_blocks"][r, item_pos[it], b] = self.probe(it, bf[B])
+                    del bf
             kept = self.learned & ~self.forgotten
             txt = f"kept {np.nanmean(til[kept])*100:5.1f}%" if kept.any() else "kept   -  "
             if self.forgotten.any():
@@ -362,10 +571,16 @@ def run_clu(cfg, data=None, requests=None, tasks=None, level=None, log=print, sa
     device = get_device()
     own_data = data is None
     if own_data:
-        data = SplitCIFAR100(seed=0, batch_size=cfg["batch_size"], num_workers=cfg["workers"])
+        Data = {"cifar100": SplitCIFAR100, "tiny100": SplitTiny100}[cfg["dataset"]]
+        data = Data(seed=0, batch_size=cfg["batch_size"], num_workers=cfg["workers"])
+    if requests is None and cfg["requests"] is not None:          # items may be class names: ["U", "wolf"]
+        requests = [(k, data.class_names.index(i) if isinstance(i, str) else int(i)) for k, i in cfg["requests"]]
+        level = cfg["level"]
     if requests is None:
         info = load_stream(RESULTS_DIR / "streams" / f"{cfg['stream']}.json")
         requests, level = info["requests"], info["level"]
+    if tasks is None and cfg["tasks_by_name"] is not None:
+        tasks = {int(t): [data.class_names.index(n) for n in names] for t, names in cfg["tasks_by_name"].items()}
     if tasks is None:
         tasks = {t: task_classes(t) for t in range(10)}
     run = CLURun(cfg, data, device, requests, tasks, level, log=log)
@@ -373,6 +588,7 @@ def run_clu(cfg, data=None, requests=None, tasks=None, level=None, log=print, sa
     res["summary"] = summarize(res)
     if save:
         name = cfg["name"]
+        (RESULTS_DIR / name).parent.mkdir(parents=True, exist_ok=True)       # names like "paper/xyz"
         np.savez(RESULTS_DIR / f"{name}.npz", **{k: v for k, v in res.items() if k not in ("unlearn_log", "summary")})
         torch.save(run.model.state_dict(), RESULTS_DIR / f"{name}_model.pt")
         (RESULTS_DIR / f"{name}_summary.json").write_text(json.dumps(

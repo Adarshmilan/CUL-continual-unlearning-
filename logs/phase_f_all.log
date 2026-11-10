@@ -1,0 +1,53 @@
+skip F_ref_handmade_worst
+skip F_layer_handmade_worst
+skip F_ref_task15_seed0
+skip F_layer_task15_seed0
+skip F_ref_task15_seed1
+skip F_fixes_task15_seed1
+skip F_proj_task15_seed1
+skip F_layer_task15_seed1
+skip F_ref_task15_seed2
+skip F_fixes_task15_seed2
+skip F_proj_task15_seed2
+skip F_layer_task15_seed2
+skip F_ref_class30_seed0
+=== START F_fixes_class30_seed0 09:34
+=== DONE F_fixes_class30_seed0 09:58
+=== START F_layer_class30_seed0 09:58
+=== FAILED F_layer_class30_seed0 10:39 (see logs/F_layer_class30_seed0.log)
+=== QUEUE FINISHED 10:39
+=== START F_feat_handmade_worst 10:39
+=== DONE F_feat_handmade_worst 10:53
+=== START F_layerS_handmade_worst 10:53
+=== DONE F_layerS_handmade_worst 11:09
+=== START F_ref_handmade_worst_s1 11:09
+=== DONE F_ref_handmade_worst_s1 11:22
+=== START F_fixes_handmade_worst_s1 11:22
+=== DONE F_fixes_handmade_worst_s1 11:37
+=== START F_layer_handmade_worst_s1 11:37
+=== DONE F_layer_handmade_worst_s1 11:52
+=== START F_feat_handmade_worst_s1 11:52
+=== DONE F_feat_handmade_worst_s1 12:07
+=== START F_ref_handmade_worst_s2 12:07
+=== DONE F_ref_handmade_worst_s2 12:20
+=== START F_fixes_handmade_worst_s2 12:20
+=== DONE F_fixes_handmade_worst_s2 12:34
+=== START F_layer_handmade_worst_s2 12:34
+=== DONE F_layer_handmade_worst_s2 12:51
+=== START F_feat_handmade_worst_s2 12:51
+=== DONE F_feat_handmade_worst_s2 13:05
+=== START F_feat_task15_seed0 13:05
+=== DONE F_feat_task15_seed0 13:23
+=== START F_feat_layer_handmade_worst 13:23
+=== DONE F_feat_layer_handmade_worst 13:39
+skip F_fixes_class30_seed0
+=== START F_layer_class30_seed0 13:39
+=== DONE F_layer_class30_seed0 14:26
+=== QUEUE FINISHED 14:26
+=== START layer probe f0 14:26
+=== DONE layer probe f0 14:27
+=== START layer probe f50 14:27
+=== DONE layer probe f50 14:29
+=== ALL_DONE 14:29
+skip F_layer_class30_seed0
+=== QUEUE FINISHED 14:29

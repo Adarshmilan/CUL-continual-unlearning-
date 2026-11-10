@@ -232,3 +232,43 @@ class SplitCIFAR100:
         labels = [c for t in range(up_to_task + 1) for c in task_classes(t)]
         subset = Subset(self.test_set, self._indices(labels, train=False))
         return _loader(subset, self.batch_size, False, self.num_workers)
+
+
+# ---------------------------------------------------------- Split Tiny-ImageNet-100 (paper, 2nd dataset)
+# The first 100 Tiny-ImageNet classes (sorted wnids), resized 64 -> 32 so the whole pipeline
+# (ResNet-18 for 32x32, 10 tasks x 10 classes, same streams) runs unchanged on a 4 GB GPU.
+# Made once by `python experiments/prepare_tiny_imagenet.py` -> data/tiny100_32.npz
+# (500 train + 50 val images per class; the val split is our test set).
+
+TINY_FILE = "tiny100_32.npz"
+
+
+class ArrayDataset(Dataset):
+    """Images kept as one uint8 array [N, 32, 32, 3]; behaves like a torchvision dataset."""
+
+    def __init__(self, images, targets, transform, classes):
+        self.images, self.targets, self.transform, self.classes = images, list(targets), transform, classes
+
+    def __len__(self):
+        return len(self.targets)
+
+    def __getitem__(self, i):
+        from PIL import Image
+        return self.transform(Image.fromarray(self.images[i])), self.targets[i]
+
+
+class SplitTiny100(SplitCIFAR100):
+    """Same interface as SplitCIFAR100 (labels renamed by a seeded class order, task t = 10t..10t+9)."""
+
+    def _load(self, train: bool, augment: bool):
+        if not hasattr(self, "_npz"):
+            path = DATA_DIR / TINY_FILE
+            if not path.exists():
+                raise FileNotFoundError(f"{path} missing: run `python experiments/prepare_tiny_imagenet.py` first")
+            self._npz = dict(np.load(path, allow_pickle=True))
+        d = self._npz
+        X, y = (d["x_train"], d["y_train"]) if train else (d["x_test"], d["y_test"])
+        old_to_new = np.argsort(self.class_order)
+        mean, std = tuple(d["mean"].tolist()), tuple(d["std"].tolist())
+        return ArrayDataset(X, [int(old_to_new[t]) for t in y], _transforms(mean, std, train=augment),
+                            [str(c) for c in d["classes"]])

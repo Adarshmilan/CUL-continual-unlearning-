@@ -1,0 +1,136 @@
+{
+ "config": {
+  "name": "paper/cause_ref_similar_s0",
+  "stream": "custom",
+  "seed": 0,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_total_frac": 0.3,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "dataset": "cifar100",
+  "unlearn_method": "badteacher",
+  "unlearn_tau": 4.6,
+  "probe_blocks": true,
+  "requests": [
+   [
+    "L",
+    0
+   ],
+   [
+    "U",
+    "wolf"
+   ],
+   [
+    "L",
+    1
+   ]
+  ],
+  "tasks_by_name": {
+   "0": [
+    "wolf",
+    "camel",
+    "cattle",
+    "chimpanzee",
+    "elephant",
+    "kangaroo",
+    "bus",
+    "bicycle",
+    "orchid",
+    "apple"
+   ],
+   "1": [
+    "bear",
+    "leopard",
+    "lion",
+    "tiger",
+    "fox",
+    "porcupine",
+    "possum",
+    "raccoon",
+    "skunk",
+    "otter"
+   ]
+  },
+  "level": "class",
+  "reference": true,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.6574,
+   "FA": NaN,
+   "Spill": 0.0,
+   "Relapse": NaN,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    NaN
+   ]
+  },
+  "cil": {
+   "RA": 0.5658,
+   "FA": NaN,
+   "Spill": 0.0,
+   "Relapse": NaN,
+   "spill_list": [
+    0.0
+   ],
+   "relapse_list": [
+    NaN
+   ]
+  },
+  "probe": {
+   "before": 0.86,
+   "after_U": 0.86,
+   "end": 0.8400000000000001,
+   "peak_rise": 0.0,
+   "end_rise": -0.019999999999999907,
+   "per_item": {
+    "73": [
+     0.86,
+     0.86,
+     0.84
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "request": 1,
+   "item": 73,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  }
+ ]
+}

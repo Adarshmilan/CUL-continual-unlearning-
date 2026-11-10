@@ -1,0 +1,20 @@
+{
+ "never-trained": {
+  "layer1": 0.439,
+  "layer2": 0.446,
+  "layer3": 0.399,
+  "layer4": 0.345
+ },
+ "before U": {
+  "layer1": 0.524,
+  "layer2": 0.542,
+  "layer3": 0.563,
+  "layer4": 0.593
+ },
+ "after U": {
+  "layer1": 0.524,
+  "layer2": 0.527,
+  "layer3": 0.51,
+  "layer4": 0.1
+ }
+}

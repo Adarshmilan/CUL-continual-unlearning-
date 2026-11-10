@@ -1,0 +1,4 @@
+                layer1  layer2  layer3  layer4
+ never-trained   43.9%   44.6%   39.9%   34.5%
+      before U   52.4%   54.2%   56.3%   59.3%
+       after U   52.4%   52.7%   51.0%   10.0%

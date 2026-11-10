@@ -1,0 +1,162 @@
+{
+ "config": {
+  "name": "F_ref_task15_seed2",
+  "stream": "task15_seed2",
+  "seed": 2,
+  "workers": 2,
+  "epochs": 5,
+  "lr": 0.03,
+  "batch_size": 32,
+  "buffer_size": 2000,
+  "replay_batch": 32,
+  "alpha": 0.5,
+  "beta": 0.5,
+  "unlearn_lr": 0.0001,
+  "unlearn_steps": 50,
+  "forget_batch": 64,
+  "retain_batch": 192,
+  "forget_data": "all",
+  "min_forget": 64,
+  "bad_teacher_seed": 0,
+  "purge_buffer": true,
+  "head_reset": true,
+  "mask_forgotten_logits": true,
+  "guard": "none",
+  "guard_lambda": 1.0,
+  "k": 5,
+  "signature": "specific",
+  "signature_images": 1000,
+  "guard_layers": "",
+  "layer_ratio": 2.0,
+  "layer_max_frac": 0.1,
+  "layer_images": 500,
+  "feature_steps": 0,
+  "feature_lr": 0.0001,
+  "feature_retain_weight": 1.0,
+  "reference": true,
+  "probe_folds": 5
+ },
+ "summary": {
+  "til": {
+   "RA": 0.7472,
+   "FA": NaN,
+   "Spill": 0.0,
+   "Relapse": NaN,
+   "spill_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "relapse_list": [
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "cil": {
+   "RA": 0.4562,
+   "FA": NaN,
+   "Spill": 0.0,
+   "Relapse": NaN,
+   "spill_list": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "relapse_list": [
+    NaN,
+    NaN,
+    NaN,
+    NaN,
+    NaN
+   ]
+  },
+  "probe": {
+   "before": 0.5429999999999999,
+   "after_U": 0.5429999999999999,
+   "end": 0.659,
+   "peak_rise": 0.11600000000000003,
+   "end_rise": 0.11600000000000003,
+   "per_item": {
+    "5": [
+     0.402,
+     0.402,
+     0.657
+    ],
+    "1": [
+     0.467,
+     0.467,
+     0.73
+    ],
+    "6": [
+     0.568,
+     0.568,
+     0.604
+    ],
+    "7": [
+     0.664,
+     0.664,
+     0.69
+    ],
+    "3": [
+     0.614,
+     0.614,
+     0.614
+    ]
+   }
+  }
+ },
+ "unlearn": [
+  {
+   "request": 3,
+   "item": 5,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 4,
+   "item": 1,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 9,
+   "item": 6,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 11,
+   "item": 7,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  },
+  {
+   "request": 14,
+   "item": 3,
+   "forget_images": 0,
+   "in_buffer": 0,
+   "retain_images": 0,
+   "bad_teacher_seed": -1,
+   "removed": 0
+  }
+ ]
+}
